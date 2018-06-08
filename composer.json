@@ -1,0 +1,26 @@
+{
+  "name": "umber/authentication",
+  "description": "A simplified authentication with implementations for Symfony",
+  "type": "library",
+
+  "require": {
+    "php": ">=7.1",
+    "umber/common": "0.1.x-dev"
+  },
+
+  "require-dev": {
+    "symfony/security": "~3.4|~4.0"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "Umber\\Authentication\\": "."
+    }
+  },
+
+  "extra": {
+    "branch-alias": {
+      "dev-develop": "0.1.x-dev"
+    }
+  }
+}

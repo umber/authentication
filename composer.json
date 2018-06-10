@@ -2,11 +2,6 @@
   "name": "umber/authentication",
   "description": "A simple authentication module.",
   "type": "library",
-  "license": "MIT",
-
-  "authors": [
-    { "name": "Matthew Rose", "email": "matt.usurp@gmail.com" }
-  ],
 
   "authors": [
     { "name": "Matthew Rose", "email": "matt.usurp@gmail.com" }
@@ -27,17 +22,9 @@
 
   "autoload": {
     "psr-4": {
-<<<<<<< HEAD
       "Umber\\Authentication\\": "src/Umber/Authentication",
       "Umber\\Authentication\\Tests\\": "tests/Umber/Authentication/Tests"
     }
-=======
-      "Umber\\Authentication\\": "."
-    },
-    "exclude-from-classmap": [
-      "Tests"
-    ]
->>>>>>> Composer changes for many repo setup.
   },
 
   "extra": {

@@ -2,6 +2,7 @@
   "name": "umber/authentication",
   "description": "A simplified authentication with implementations for Symfony",
   "type": "library",
+  "license": "MIT",
 
   "authors": [
     { "name": "Matthew Rose", "email": "matt.usurp@gmail.com" }

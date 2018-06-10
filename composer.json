@@ -3,6 +3,10 @@
   "description": "A simplified authentication with implementations for Symfony",
   "type": "library",
 
+  "authors": [
+    { "name": "Matthew Rose", "email": "matt.usurp@gmail.com" }
+  ],
+
   "require": {
     "php": ">=7.1",
     "umber/common": "0.1.x-dev"
@@ -15,12 +19,23 @@
   "autoload": {
     "psr-4": {
       "Umber\\Authentication\\": "."
-    }
+    },
+    "exclude-from-classmap": [
+      "Tests"
+    ]
   },
 
   "extra": {
     "branch-alias": {
-      "dev-develop": "0.1.x-dev"
+      "dev-develop": "0.1-dev"
     }
+  },
+
+  "archive": {
+    "exclude": [
+      "!vendor",
+      "*phpunit.xml",
+      ".travis.yml"
+    ]
   }
 }

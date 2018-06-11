@@ -44,6 +44,8 @@ final class Authenticator
             $credentials = $this->credentialResolver->resolve($method);
         } catch (CannotResolveAuthenticationMethodException $exception) {
             throw UnauthorisedException::create($exception);
+        } catch (CannotResolveAuthenticatedUserException $exception) {
+            throw UnauthorisedException::create($exception);
         } catch (UnsupportedAuthenticationMethodException $exception) {
             throw UnauthorisedException::create($exception);
         }

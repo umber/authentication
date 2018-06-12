@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Token\Key\Storage;
 
-use Umber\Authentication\Token\Key\Loader\FileKeyLoader;
+use Umber\Authentication\Token\Key\KeyLoaderInterface;
 
 /**
  * A authentication key storage.
@@ -15,7 +15,7 @@ final class KeyStorage
     private $private;
     private $passPhrase;
 
-    public function __construct(FileKeyLoader $public, FileKeyLoader $private, ?string $passPhrase)
+    public function __construct(KeyLoaderInterface $public, KeyLoaderInterface $private, ?string $passPhrase)
     {
         $this->public = $public;
         $this->private = $private;
@@ -29,17 +29,17 @@ final class KeyStorage
     }
 
     /**
-     * Return the public key.
+     * Return the public key loader.
      */
-    public function getPublicKey(): FileKeyLoader
+    public function getPublicKeyLoader(): KeyLoaderInterface
     {
         return $this->public;
     }
 
     /**
-     * Return the private key,
+     * Return the private key loader,
      */
-    public function getPrivateKey(): FileKeyLoader
+    public function getPrivateKeyLoader(): KeyLoaderInterface
     {
         return $this->private;
     }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Storage;
 
+use Umber\Common\Exception\ExceptionMessageHelper;
+
 use Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisationInterface;
 use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException;
 use Umber\Authentication\Exception\UnauthorisedException;
@@ -14,7 +16,6 @@ use Umber\Authentication\Storage\CredentialStorage;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Umber\Common\Exception\ExceptionMessageHelper;
 
 /**
  * {@inheritdoc}

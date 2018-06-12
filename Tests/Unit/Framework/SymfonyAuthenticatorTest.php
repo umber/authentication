@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Framework;
 
+use Umber\Common\Exception\ExceptionMessageHelper;
+
 use Umber\Authentication\Authenticator;
 use Umber\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
+use Umber\Authentication\Exception\UnauthorisedException;
 use Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
 use Umber\Authentication\Framework\SymfonyAuthenticator;
 use Umber\Authentication\Resolver\Credential\User\UserCredential;
@@ -156,6 +159,103 @@ final class SymfonyAuthenticatorTest extends TestCase
         self::assertInstanceOf(PreAuthenticatedToken::class, $token);
         self::assertEquals('provider', $token->getProviderKey());
         self::assertEquals('some-value', $token->getCredentials());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group authentication
+     *
+     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Exception\UnauthorisedException
+     *
+     * @throws \ReflectionException
+     */
+    public function withMalformedRequestHeaderThrowUnauthorised(): void
+    {
+        /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
+        $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
+        $authorisationHierarchyResolver->expects(self::never())
+            ->method('resolve');
+
+        /** @var CredentialResolverInterface|MockObject $credentialResolver */
+        $credentialResolver = $this->createMock(CredentialResolverInterface::class);
+        $credentialResolver->expects(self::never())
+            ->method('resolve');
+
+        /** @var CredentialStorageInterface|MockObject $credentialStorage */
+        $credentialStorage = $this->createMock(CredentialStorageInterface::class);
+        $credentialStorage->expects(self::never())
+            ->method('authorise');
+
+        $authenticator = new Authenticator(
+            $authorisationHierarchyResolver,
+            $credentialResolver,
+            $credentialStorage
+        );
+
+        $symfony = new SymfonyAuthenticator($authenticator);
+
+        $request = new Request();
+        $request->headers->set(RequestAuthorisationHeader::AUTHORISATION_HEADER, 'malformed-value');
+
+        self::expectException(UnauthorisedException::class);
+        self::expectExceptionMessage(
+            ExceptionMessageHelper::translate(
+                UnauthorisedException::getMessageTemplate()
+            )
+        );
+
+        $symfony->createToken($request, 'provider');
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group authentication
+     *
+     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Exception\UnauthorisedException
+     *
+     * @throws \ReflectionException
+     */
+    public function withMissingRequestHeaderThrowUnauthorised(): void
+    {
+        /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
+        $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
+        $authorisationHierarchyResolver->expects(self::never())
+            ->method('resolve');
+
+        /** @var CredentialResolverInterface|MockObject $credentialResolver */
+        $credentialResolver = $this->createMock(CredentialResolverInterface::class);
+        $credentialResolver->expects(self::never())
+            ->method('resolve');
+
+        /** @var CredentialStorageInterface|MockObject $credentialStorage */
+        $credentialStorage = $this->createMock(CredentialStorageInterface::class);
+        $credentialStorage->expects(self::never())
+            ->method('authorise');
+
+        $authenticator = new Authenticator(
+            $authorisationHierarchyResolver,
+            $credentialResolver,
+            $credentialStorage
+        );
+
+        $symfony = new SymfonyAuthenticator($authenticator);
+
+        $request = new Request();
+
+        self::expectException(UnauthorisedException::class);
+        self::expectExceptionMessage(
+            ExceptionMessageHelper::translate(
+                UnauthorisedException::getMessageTemplate()
+            )
+        );
+
+        $symfony->createToken($request, 'provider');
     }
 
     /**

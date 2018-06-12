@@ -43,7 +43,7 @@ final class TokenProvider implements TokenProviderInterface
         $storage = $this->keyStorageResolver->resolve();
 
         $key = new Key(
-            $storage->getPrivateKey()->load(),
+            $storage->getPrivateKeyLoader()->load(),
             $storage->getPassPhrase()
         );
 
@@ -77,7 +77,7 @@ final class TokenProvider implements TokenProviderInterface
         $storage = $this->keyStorageResolver->resolve();
 
         $key = new Key(
-            $storage->getPublicKey()->load(),
+            $storage->getPublicKeyLoader()->load(),
             $storage->getPassPhrase()
         );
 

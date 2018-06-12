@@ -56,6 +56,7 @@ final class PermissionFactoryTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory
+     * @covers \Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException
      */
     public function withPermissionStringInvalidThrow(): void
     {

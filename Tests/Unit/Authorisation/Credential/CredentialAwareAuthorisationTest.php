@@ -42,6 +42,8 @@ final class CredentialAwareAuthorisationTest extends TestCase
         $hierarchy = AuthorisationHierarchyFixture::create();
         $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
+        self::assertSame($credentials, $authorisation->getCredentials());
+
         self::assertEquals([], $authorisation->getRoles());
         self::assertEquals([], $authorisation->getPermissions());
         self::assertEquals([], $authorisation->getPassivePermissions());

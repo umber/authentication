@@ -83,6 +83,7 @@ final class RequestAuthorisationHeaderTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader
+     * @covers \Umber\Authentication\Exception\Authorisation\MissingCredentialsException
      */
     public function withMissingAuthorisationHeaderThrow(): void
     {

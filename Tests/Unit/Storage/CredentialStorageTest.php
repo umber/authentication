@@ -14,6 +14,7 @@ use Umber\Authentication\Storage\CredentialStorage;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Umber\Common\Exception\ExceptionMessageHelper;
 
 /**
  * {@inheritdoc}
@@ -42,12 +43,18 @@ final class CredentialStorageTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Storage\CredentialStorage
+     * @covers \Umber\Authentication\Exception\UnauthorisedException
      */
     public function withFreshInstanceCannotGetCredentials(): void
     {
         $storage = new CredentialStorage();
 
         self::expectException(UnauthorisedException::class);
+        self::expectExceptionMessage(
+            ExceptionMessageHelper::translate(
+                UnauthorisedException::getMessageTemplate()
+            )
+        );
 
         $storage->getCredentials();
     }
@@ -59,12 +66,18 @@ final class CredentialStorageTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Storage\CredentialStorage
+     * @covers \Umber\Authentication\Exception\UnauthorisedException
      */
     public function withFreshInstanceCannotGetAuthorisation(): void
     {
         $storage = new CredentialStorage();
 
         self::expectException(UnauthorisedException::class);
+        self::expectExceptionMessage(
+            ExceptionMessageHelper::translate(
+                UnauthorisedException::getMessageTemplate()
+            )
+        );
 
         $storage->getAuthorisation();
     }
@@ -76,12 +89,18 @@ final class CredentialStorageTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Storage\CredentialStorage
+     * @covers \Umber\Authentication\Exception\UnauthorisedException
      */
     public function withFreshInstanceCannotGetUser(): void
     {
         $storage = new CredentialStorage();
 
         self::expectException(UnauthorisedException::class);
+        self::expectExceptionMessage(
+            ExceptionMessageHelper::translate(
+                UnauthorisedException::getMessageTemplate()
+            )
+        );
 
         $storage->getUser();
     }
@@ -166,6 +185,7 @@ final class CredentialStorageTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Storage\CredentialStorage
+     * @covers \Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException
      *
      * @throws \ReflectionException
      */
@@ -184,6 +204,11 @@ final class CredentialStorageTest extends TestCase
         $storage->authorise($authorisation);
 
         self::expectException(CannotResolveAuthenticatedUserException::class);
+        self::expectExceptionMessage(
+            ExceptionMessageHelper::translate(
+                CannotResolveAuthenticatedUserException::getMessageTemplate()
+            )
+        );
 
         $storage->getUser();
     }

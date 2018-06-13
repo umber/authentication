@@ -53,7 +53,10 @@ final class AuthorisationHierarchy
             throw PermissionMissingAbilitiesException::create($scope);
         }
 
-        $this->permissions[$scope] = $this->permissionFactory->create($scope, $abilities);
+        $permission = $this->permissionFactory->create($scope, $abilities);
+        $index = $this->normalisePermissionScope($permission->getScope());
+
+        $this->permissions[$index] = $permission;
     }
 
     /**
@@ -86,7 +89,10 @@ final class AuthorisationHierarchy
         $mergedPermissions = array_merge($availablePermissions, $inheritedPermissions);
         $allPermissions = $this->merge($mergedPermissions);
 
-        $this->roles[$name] = $this->roleFactory->create($name, $allPermissions);
+        $role = $this->roleFactory->create($name, $allPermissions);
+        $index = $this->normaliseRoleName($role->getName());
+
+        $this->roles[$index] = $role;
     }
 
     /**
@@ -102,9 +108,11 @@ final class AuthorisationHierarchy
     /**
      * Check for a role.
      */
-    public function hasRole(string $name): bool
+    public function hasRole(string $role): bool
     {
-        return isset($this->roles[$name]);
+        $index = $this->normaliseRoleName($role);
+
+        return isset($this->roles[$index]);
     }
 
     /**
@@ -114,11 +122,13 @@ final class AuthorisationHierarchy
      */
     public function getRole(string $role): RoleInterface
     {
-        if (!isset($this->roles[$role])) {
+        $index = $this->normaliseRoleName($role);
+
+        if (!isset($this->roles[$index])) {
             throw RoleNotFoundException::create($role);
         }
 
-        return $this->roles[$role];
+        return $this->roles[$index];
     }
 
     /**
@@ -136,7 +146,9 @@ final class AuthorisationHierarchy
      */
     public function hasPermission(string $scope): bool
     {
-        return isset($this->permissions[$scope]);
+        $index = $this->normalisePermissionScope($scope);
+
+        return isset($this->permissions[$index]);
     }
 
     /**
@@ -146,11 +158,13 @@ final class AuthorisationHierarchy
      */
     public function getPermission(string $scope): PermissionInterface
     {
-        if (!isset($this->permissions[$scope])) {
+        $index = $this->normalisePermissionScope($scope);
+
+        if (!isset($this->permissions[$index])) {
             throw PermissionScopeNotFoundException::create($scope);
         }
 
-        return $this->permissions[$scope];
+        return $this->permissions[$index];
     }
 
     /**
@@ -227,5 +241,21 @@ final class AuthorisationHierarchy
     private function merge(array $permissions): array
     {
         return PermissionMerger::merge($this->permissionFactory, $permissions);
+    }
+
+    /**
+     * Normalise the permission scope for storing as an index.
+     */
+    private function normalisePermissionScope(string $scope): string
+    {
+        return strtolower($scope);
+    }
+
+    /**
+     * Normalise the role name for storing as an index.
+     */
+    private function normaliseRoleName(string $role): string
+    {
+        return strtolower($role);
     }
 }

@@ -26,9 +26,9 @@ final class RoleTest extends TestCase
      */
     public function checkBasicUsage(): void
     {
-        $role = new Role('role-name', []);
+        $role = new Role('role_name', []);
 
-        self::assertEquals('role-name', $role->getName());
+        self::assertEquals('ROLE_NAME', $role->getName());
         self::assertEquals([], $role->getPassivePermissions());
     }
 
@@ -42,9 +42,9 @@ final class RoleTest extends TestCase
      */
     public function withUpperCaseLowerCase(): void
     {
-        $role = new Role('Role-NAME-here', []);
+        $role = new Role('Role_NAME_here', []);
 
-        self::assertEquals('role-name-here', $role->getName());
+        self::assertEquals('ROLE_NAME_HERE', $role->getName());
     }
 
     /**
@@ -118,6 +118,6 @@ final class RoleTest extends TestCase
     {
         $role = new Role($name, []);
 
-        self::assertEquals(strtolower($name), $role->getName());
+        self::assertEquals(strtoupper($name), $role->getName());
     }
 }

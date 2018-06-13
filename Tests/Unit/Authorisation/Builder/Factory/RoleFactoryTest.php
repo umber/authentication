@@ -28,7 +28,7 @@ final class RoleFactoryTest extends TestCase
         $role = (new RoleFactory())->create('manager', []);
 
         self::assertInstanceOf(Role::class, $role);
-        self::assertEquals('manager', $role->getName());
+        self::assertEquals('MANAGER', $role->getName());
         self::assertEquals([], $role->getPassivePermissions());
     }
 
@@ -49,7 +49,7 @@ final class RoleFactoryTest extends TestCase
         ]);
 
         self::assertInstanceOf(Role::class, $role);
-        self::assertEquals('manager', $role->getName());
+        self::assertEquals('MANAGER', $role->getName());
 
         $expected = [
             $permission,

@@ -50,7 +50,7 @@ final class Authorisation implements AuthorisationInterface
     public function hasRole(string $role): bool
     {
         foreach ($this->roles as $instance) {
-            if ($instance->getName() === $role) {
+            if (strtoupper($instance->getName()) === strtoupper($role)) {
                 return true;
             }
         }

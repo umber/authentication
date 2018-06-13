@@ -11,7 +11,7 @@ use Umber\Authentication\Exception\Authorisation\Role\RoleNameInvalidException;
  */
 final class Role implements RoleInterface
 {
-    private const NAME_REGEX = '/^([a-z]+[a-z\-\_]?[a-z]+)+$/';
+    private const NAME_REGEX = '/^([A-Z]+[A-~\-\_]?[A-Z]+)+$/';
 
     private $name;
     private $permissions;
@@ -21,11 +21,11 @@ final class Role implements RoleInterface
      */
     public function __construct(string $name, array $permissions)
     {
-        if (preg_match(self::NAME_REGEX, strtolower($name)) !== 1) {
+        if (preg_match(self::NAME_REGEX, strtoupper($name)) !== 1) {
             throw RoleNameInvalidException::create($name);
         }
 
-        $this->name = strtolower($name);
+        $this->name = strtoupper($name);
         $this->permissions = $permissions;
     }
 

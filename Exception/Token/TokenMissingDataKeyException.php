@@ -27,7 +27,7 @@ final class TokenMissingDataKeyException extends AbstractRuntimeException
     public static function getMessageTemplate(): array
     {
         return [
-            'The authentication token data does not have "{{ key }}".',
+            'The authentication token data does not have "{{key}}".',
         ];
     }
 }

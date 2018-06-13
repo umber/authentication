@@ -10,6 +10,8 @@ use Umber\Authentication\Authenticator;
 use Umber\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
 use Umber\Authentication\Exception\UnauthorisedException;
 use Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
+use Umber\Authentication\Framework\Modifier\AuthenticatorRoleModifierInterface;
+use Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier;
 use Umber\Authentication\Framework\SymfonyAuthenticator;
 use Umber\Authentication\Resolver\Credential\User\UserCredential;
 use Umber\Authentication\Resolver\CredentialResolverInterface;
@@ -20,6 +22,7 @@ use Umber\Authentication\Tests\Model\UserTestModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -37,6 +40,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
      */
@@ -57,7 +61,8 @@ final class SymfonyAuthenticatorTest extends TestCase
             $credentialStorage
         );
 
-        $symfony = new SymfonyAuthenticator($authenticator);
+        $modifier = new NullAuthenticatorRoleModifier();
+        $symfony = new SymfonyAuthenticator($authenticator, $modifier);
 
         /** @var TokenInterface|MockObject $token */
         $token = $this->createMock(TokenInterface::class);
@@ -72,6 +77,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
      */
@@ -96,7 +102,8 @@ final class SymfonyAuthenticatorTest extends TestCase
             $credentialStorage
         );
 
-        $symfony = new SymfonyAuthenticator($authenticator);
+        $modifier = new NullAuthenticatorRoleModifier();
+        $symfony = new SymfonyAuthenticator($authenticator, $modifier);
 
         $token = new PreAuthenticatedToken(
             'user',
@@ -115,6 +122,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
      */
@@ -149,7 +157,8 @@ final class SymfonyAuthenticatorTest extends TestCase
             $credentialStorage
         );
 
-        $symfony = new SymfonyAuthenticator($authenticator);
+        $modifier = new NullAuthenticatorRoleModifier();
+        $symfony = new SymfonyAuthenticator($authenticator, $modifier);
 
         $request = new Request();
         $request->headers->set(RequestAuthorisationHeader::AUTHORISATION_HEADER, 'Bearer some-value');
@@ -168,6 +177,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      *
      * @throws \ReflectionException
@@ -195,7 +205,8 @@ final class SymfonyAuthenticatorTest extends TestCase
             $credentialStorage
         );
 
-        $symfony = new SymfonyAuthenticator($authenticator);
+        $modifier = new NullAuthenticatorRoleModifier();
+        $symfony = new SymfonyAuthenticator($authenticator, $modifier);
 
         $request = new Request();
         $request->headers->set(RequestAuthorisationHeader::AUTHORISATION_HEADER, 'malformed-value');
@@ -217,6 +228,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      *
      * @throws \ReflectionException
@@ -244,7 +256,8 @@ final class SymfonyAuthenticatorTest extends TestCase
             $credentialStorage
         );
 
-        $symfony = new SymfonyAuthenticator($authenticator);
+        $modifier = new NullAuthenticatorRoleModifier();
+        $symfony = new SymfonyAuthenticator($authenticator, $modifier);
 
         $request = new Request();
 
@@ -265,6 +278,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
      */
@@ -294,7 +308,8 @@ final class SymfonyAuthenticatorTest extends TestCase
             $credentialStorage
         );
 
-        $symfony = new SymfonyAuthenticator($authenticator);
+        $modifier = new NullAuthenticatorRoleModifier();
+        $symfony = new SymfonyAuthenticator($authenticator, $modifier);
 
         /** @var UserProviderInterface|MockObject $userProvider */
         $userProvider = $this->createMock(UserProviderInterface::class);
@@ -312,5 +327,68 @@ final class SymfonyAuthenticatorTest extends TestCase
         self::assertEquals('provider', $token->getProviderKey());
         self::assertEquals('credentials', $token->getCredentials());
         self::assertSame($user, $token->getUser());
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group authentication
+     *
+     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     *
+     * @throws \ReflectionException
+     */
+    public function canAuthenticateTokenModifiedRoles(): void
+    {
+        $user = new UserTestModel();
+
+        /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
+        $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
+        $authorisationHierarchyResolver->expects(self::never())
+            ->method('resolve');
+
+        /** @var CredentialResolverInterface|MockObject $credentialResolver */
+        $credentialResolver = $this->createMock(CredentialResolverInterface::class);
+        $credentialResolver->expects(self::never())
+            ->method('resolve');
+
+        /** @var CredentialStorageInterface|MockObject $credentialStorage */
+        $credentialStorage = $this->createMock(CredentialStorageInterface::class);
+        $credentialStorage->expects(self::once())
+            ->method('getUser')
+            ->willReturn($user);
+
+        $authenticator = new Authenticator(
+            $authorisationHierarchyResolver,
+            $credentialResolver,
+            $credentialStorage
+        );
+
+        /** @var AuthenticatorRoleModifierInterface|MockObject $modifier */
+        $modifier = $this->createMock(AuthenticatorRoleModifierInterface::class);
+        $modifier->expects(self::once())
+            ->method('modify')
+            ->willReturn(['MODIFIED_ROLE']);
+
+        $symfony = new SymfonyAuthenticator($authenticator, $modifier);
+
+        /** @var UserProviderInterface|MockObject $userProvider */
+        $userProvider = $this->createMock(UserProviderInterface::class);
+
+        $token = new PreAuthenticatedToken(
+            'user',
+            'credentials',
+            'provider',
+            []
+        );
+
+        $token = $symfony->authenticateToken($token, $userProvider, 'provider');
+
+        $expected = [
+            new Role('MODIFIED_ROLE'),
+        ];
+
+        self::assertEquals($expected, $token->getRoles());
     }
 }

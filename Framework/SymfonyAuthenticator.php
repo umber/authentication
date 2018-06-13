@@ -9,6 +9,7 @@ use Umber\Authentication\Exception\Authorisation\MissingCredentialsException;
 use Umber\Authentication\Exception\Method\Header\MalformedAuthorisationHeaderException;
 use Umber\Authentication\Exception\UnauthorisedException;
 use Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
+use Umber\Authentication\Framework\Modifier\AuthenticatorRoleModifierInterface;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
@@ -22,10 +23,12 @@ use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterfa
 final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
 {
     private $authenticator;
+    private $modifier;
 
-    public function __construct(Authenticator $authenticator)
+    public function __construct(Authenticator $authenticator, AuthenticatorRoleModifierInterface $modifier)
     {
         $this->authenticator = $authenticator;
+        $this->modifier = $modifier;
     }
 
     /**
@@ -68,13 +71,13 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
      */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $provider)
     {
+        $credentials = $token->getCredentials();
+
         $user = $this->authenticator->getUser();
 
-        return new PreAuthenticatedToken(
-            $user,
-            $token->getCredentials(),
-            $provider,
-            $user->getAuthorisationRoles()
-        );
+        $roles = $user->getAuthorisationRoles();
+        $roles = $this->modifier->modify($roles);
+
+        return new PreAuthenticatedToken($user, $credentials, $provider, $roles);
     }
 }

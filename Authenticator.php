@@ -40,6 +40,10 @@ final class Authenticator
      */
     public function authenticate(AuthenticationMethodInterface $method): void
     {
+        if ($this->credentialStorage->isAuthenticated()) {
+            return;
+        }
+
         try {
             $credentials = $this->credentialResolver->resolve($method);
         } catch (CannotResolveAuthenticationMethodException $exception) {

@@ -6,6 +6,7 @@ namespace Umber\Authentication\Authorisation;
 
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNameInvalidException;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException;
+use Umber\Authentication\Utility\NameNormaliser;
 
 /**
  * {@inheritdoc}
@@ -63,6 +64,8 @@ final class Permission implements PermissionInterface
      */
     public function hasAbility(string $ability): bool
     {
+        $ability = NameNormaliser::normalisePermissionAbility($ability);
+
         if (in_array(self::WILDCARD, $this->abilities)) {
             return true;
         }

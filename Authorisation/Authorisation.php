@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Umber\Authentication\Authorisation;
 
 use Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy;
+use Umber\Authentication\Utility\NameNormaliser;
 
 /**
  * {@inheritdoc}
@@ -49,8 +50,10 @@ final class Authorisation implements AuthorisationInterface
      */
     public function hasRole(string $role): bool
     {
+        $role = NameNormaliser::normaliseRoleName($role);
+
         foreach ($this->roles as $instance) {
-            if (strtoupper($instance->getName()) === strtoupper($role)) {
+            if (NameNormaliser::normaliseRoleName($instance->getName()) === $role) {
                 return true;
             }
         }
@@ -71,10 +74,12 @@ final class Authorisation implements AuthorisationInterface
      */
     public function hasPermission(string $scope, string $ability): bool
     {
+        $scope = NameNormaliser::normalisePermissionScope($scope);
+
         $found = null;
 
         foreach ($this->permissions as $permission) {
-            if ($permission->getScope() === $scope) {
+            if (NameNormaliser::normalisePermissionScope($permission->getScope()) === $scope) {
                 $found = $permission;
 
                 break;
@@ -83,7 +88,7 @@ final class Authorisation implements AuthorisationInterface
 
         if ($found === null) {
             foreach ($this->passivePermissions as $permission) {
-                if ($permission->getScope() === $scope) {
+                if (NameNormaliser::normalisePermissionScope($permission->getScope()) === $scope) {
                     $found = $permission;
 
                     break;

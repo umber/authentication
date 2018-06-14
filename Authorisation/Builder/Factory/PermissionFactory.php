@@ -7,6 +7,7 @@ namespace Umber\Authentication\Authorisation\Builder\Factory;
 use Umber\Authentication\Authorisation\Permission;
 use Umber\Authentication\Authorisation\PermissionInterface;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException;
+use Umber\Authentication\Utility\NameNormaliser;
 
 /**
  * {@inheritdoc}
@@ -22,6 +23,12 @@ final class PermissionFactory implements PermissionFactoryInterface
      */
     public function create(string $scope, array $abilities): PermissionInterface
     {
+        $scope = NameNormaliser::normalisePermissionScope($scope);
+
+        $abilities = array_map(function ($value) {
+            return NameNormaliser::normalisePermissionAbility($value);
+        }, $abilities);
+
         return new Permission($scope, $abilities);
     }
 

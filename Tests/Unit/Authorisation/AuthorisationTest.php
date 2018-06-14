@@ -72,7 +72,7 @@ final class AuthorisationTest extends TestCase
         $hierarchy = AuthorisationHierarchyFixture::create();
         $authorisation = new Authorisation($roles, [], $hierarchy);
 
-        self::assertTrue($authorisation->hasRole('manager'));
+        self::assertTrue($authorisation->hasRole('MANAGER'));
     }
 
     /**

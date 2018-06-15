@@ -1,7 +1,8 @@
 {
   "name": "umber/authentication",
-  "description": "A simple authentication module.",
+  "description": "A simplified authentication with implementations for Symfony",
   "type": "library",
+  "license": "MIT",
 
   "authors": [
     { "name": "Matthew Rose", "email": "matt.usurp@gmail.com" }
@@ -9,22 +10,22 @@
 
   "require": {
     "php": ">=7.1",
-
-    "umber/common": "~0.1",
-
-    "lcobucci/jwt": "~3.2"
+    "umber/common": "0.1.x-dev"
   },
 
   "require-dev": {
     "phpunit/phpunit": "^7.0",
-    "symfony/security": "~3.4 | ~4.0"
+    "symfony/security": "~3.4 | ~4.0",
+    "lcobucci/jwt": "~3.2"
   },
 
   "autoload": {
     "psr-4": {
-      "Umber\\Authentication\\": "src/Umber/Authentication",
-      "Umber\\Authentication\\Tests\\": "tests/Umber/Authentication/Tests"
-    }
+      "Umber\\Authentication\\": "."
+    },
+    "exclude-from-classmap": [
+      "Tests"
+    ]
   },
 
   "extra": {

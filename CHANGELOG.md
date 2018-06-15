@@ -10,7 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.0] - 2018-06-08
 
+### Removed
+- Removed classes implementing `CredentialResolverInterface`.
+
 ### Added
+- Added a series of token classes for `lcobucci/jwt` and basic implementation.
 - Added implementation for `symfony/security` @ `~3.4|~4.0`.
 - Added `phpunit.xml.dist`.
 - Added `.gitattributes` and `.gitignore`.

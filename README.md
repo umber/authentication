@@ -9,13 +9,3 @@ resolvers.
 
 Implementations are provided for the following frameworks:
 * `symfony/symfony` @ `~3.4|~4.0`
-
-Authentication methods available:
-* `Authorization` header
-** `Email` scheme which is handy for tests.
-
-Coming Soon
-===========
-
-Planned implementations for:
-* `Authorization: Bearer jwt`

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Tests\Unit\Framework;
+namespace Umber\Authentication\Tests\Unit\Framework\Symfony\Bundle;
 
 use Umber\Common\Exception\ExceptionMessageHelper;
 
 use Umber\Authentication\Authenticator;
 use Umber\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
 use Umber\Authentication\Exception\UnauthorisedException;
-use Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
 use Umber\Authentication\Framework\Modifier\AuthenticatorRoleModifierInterface;
 use Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier;
-use Umber\Authentication\Framework\SymfonyAuthenticator;
+use Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader;
+use Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator;
 use Umber\Authentication\Resolver\Credential\User\UserCredential;
 use Umber\Authentication\Resolver\CredentialResolverInterface;
 use Umber\Authentication\Storage\CredentialStorageInterface;
 use Umber\Authentication\Tests\Fixture\AuthorisationHierarchyFixture;
-use Umber\Authentication\Tests\Model\UserTestModel;
+use Umber\Authentication\Tests\Model\SymfonyUserTestModel;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
@@ -39,7 +39,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
@@ -76,7 +76,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
@@ -121,14 +121,14 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
      */
     public function canCreatePreAuthenticatedToken(): void
     {
-        $user = new UserTestModel();
+        $user = new SymfonyUserTestModel();
 
         /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
         $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
@@ -161,7 +161,7 @@ final class SymfonyAuthenticatorTest extends TestCase
         $symfony = new SymfonyAuthenticator($authenticator, $modifier);
 
         $request = new Request();
-        $request->headers->set(RequestAuthorisationHeader::AUTHORISATION_HEADER, 'Bearer some-value');
+        $request->headers->set(SymfonyRequestAuthorisationHeader::AUTHORISATION_HEADER, 'Bearer some-value');
 
         $token = $symfony->createToken($request, 'provider');
 
@@ -176,7 +176,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      *
@@ -209,7 +209,7 @@ final class SymfonyAuthenticatorTest extends TestCase
         $symfony = new SymfonyAuthenticator($authenticator, $modifier);
 
         $request = new Request();
-        $request->headers->set(RequestAuthorisationHeader::AUTHORISATION_HEADER, 'malformed-value');
+        $request->headers->set(SymfonyRequestAuthorisationHeader::AUTHORISATION_HEADER, 'malformed-value');
 
         self::expectException(UnauthorisedException::class);
         self::expectExceptionMessage(
@@ -227,7 +227,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      *
@@ -277,14 +277,14 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
      */
     public function canAuthenticateToken(): void
     {
-        $user = new UserTestModel();
+        $user = new SymfonyUserTestModel();
 
         /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
         $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
@@ -335,13 +335,13 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
      *
      * @throws \ReflectionException
      */
     public function canAuthenticateTokenModifiedRoles(): void
     {
-        $user = new UserTestModel();
+        $user = new SymfonyUserTestModel();
 
         /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
         $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);

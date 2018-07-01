@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Nothing.
 
+## [0.1.1] - 2018-07-01
+
+### Added
+- Added `UmberAuthenticationBundle` for those using `symfony` and want services registered for you.
+
+### Moved
+- The class `RequestAuthorisationHeader` has been renamed to `SymfonyRequestAuthorisationHeader`.
+- The classes relating to `symfony` have been moved to `Framework/Symfony`.
+
 ## [0.1.0] - 2018-06-08
 
 ### Removed

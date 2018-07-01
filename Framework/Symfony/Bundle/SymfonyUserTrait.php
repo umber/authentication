@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Framework;
+namespace Umber\Authentication\Framework\Symfony\Bundle;
 
 use Umber\Authentication\Prototype\UserInterface as CommonUserInterface;
 

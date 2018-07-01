@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Framework\Method\Header;
+namespace Umber\Authentication\Framework\Symfony\Bundle\Method\Header;
 
 use Umber\Authentication\Exception\Authorisation\MissingCredentialsException;
 use Umber\Authentication\Exception\Method\Header\MalformedAuthorisationHeaderException;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * This class will attempt to locate and parse the header string from a Symfony request.
  */
-final class RequestAuthorisationHeader implements AuthorisationHeaderInterface
+final class SymfonyRequestAuthorisationHeader implements AuthorisationHeaderInterface
 {
     public const AUTHORISATION_HEADER = 'Authorization';
 

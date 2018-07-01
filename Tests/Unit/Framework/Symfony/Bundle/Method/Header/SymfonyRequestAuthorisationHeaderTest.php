@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Tests\Unit\Framework\Method\Header;
+namespace Umber\Authentication\Tests\Unit\Framework\Symfony\Bundle\Method\Header;
 
 use Umber\Common\Exception\ExceptionMessageHelper;
 
 use Umber\Authentication\Exception\Authorisation\MissingCredentialsException;
-use Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
+use Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * {@inheritdoc}
  */
-final class RequestAuthorisationHeaderTest extends TestCase
+final class SymfonyRequestAuthorisationHeaderTest extends TestCase
 {
     /**
      * @test
@@ -24,14 +24,14 @@ final class RequestAuthorisationHeaderTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canConstructBasic(): void
     {
         $request = new Request();
-        $request->headers->set(RequestAuthorisationHeader::AUTHORISATION_HEADER, 'some-type some-value');
+        $request->headers->set(SymfonyRequestAuthorisationHeader::AUTHORISATION_HEADER, 'some-type some-value');
 
-        $header = new RequestAuthorisationHeader($request);
+        $header = new SymfonyRequestAuthorisationHeader($request);
 
         self::assertEquals('some-type', $header->getType());
         self::assertEquals('some-value', $header->getCredentials());
@@ -43,14 +43,14 @@ final class RequestAuthorisationHeaderTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canHandleTypeCase(): void
     {
         $request = new Request();
-        $request->headers->set(RequestAuthorisationHeader::AUTHORISATION_HEADER, 'Bearer SomeValueHERE');
+        $request->headers->set(SymfonyRequestAuthorisationHeader::AUTHORISATION_HEADER, 'Bearer SomeValueHERE');
 
-        $header = new RequestAuthorisationHeader($request);
+        $header = new SymfonyRequestAuthorisationHeader($request);
 
         self::assertEquals('bearer', $header->getType());
         self::assertEquals('SomeValueHERE', $header->getCredentials());
@@ -62,14 +62,14 @@ final class RequestAuthorisationHeaderTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canCastString(): void
     {
         $request = new Request();
-        $request->headers->set(RequestAuthorisationHeader::AUTHORISATION_HEADER, 'Bearer some-value');
+        $request->headers->set(SymfonyRequestAuthorisationHeader::AUTHORISATION_HEADER, 'Bearer some-value');
 
-        $header = new RequestAuthorisationHeader($request);
+        $header = new SymfonyRequestAuthorisationHeader($request);
 
         $expected = 'Bearer some-value';
 
@@ -82,7 +82,7 @@ final class RequestAuthorisationHeaderTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Method\Header\RequestAuthorisationHeader
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader
      * @covers \Umber\Authentication\Exception\Authorisation\MissingCredentialsException
      */
     public function withMissingAuthorisationHeaderThrow(): void
@@ -92,6 +92,6 @@ final class RequestAuthorisationHeaderTest extends TestCase
             MissingCredentialsException::getMessageTemplate()
         ));
 
-        new RequestAuthorisationHeader(new Request());
+        new SymfonyRequestAuthorisationHeader(new Request());
     }
 }

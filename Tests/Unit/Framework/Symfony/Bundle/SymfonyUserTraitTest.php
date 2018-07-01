@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Tests\Unit\Framework;
+namespace Umber\Authentication\Tests\Unit\Framework\Symfony\Bundle;
 
-use Umber\Authentication\Framework\SymfonyUserTrait;
+use Umber\Authentication\Framework\Symfony\Bundle\SymfonyUserTrait;
 use Umber\Authentication\Prototype\UserInterface;
 
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,7 @@ final class SymfonyUserTraitTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\SymfonyUserTrait
+     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyUserTrait
      */
     public function canTraitWork(): void
     {

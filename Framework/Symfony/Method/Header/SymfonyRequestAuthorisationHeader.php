@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Framework\Symfony\Bundle\Method\Header;
+namespace Umber\Authentication\Framework\Symfony\Method\Header;
 
 use Umber\Authentication\Exception\Authorisation\MissingCredentialsException;
 use Umber\Authentication\Exception\Method\Header\MalformedAuthorisationHeaderException;

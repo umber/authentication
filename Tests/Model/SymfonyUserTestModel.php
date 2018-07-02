@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Model;
 
-use Umber\Authentication\Framework\Symfony\Bundle\SymfonyUserTrait;
+use Umber\Authentication\Framework\Symfony\Prototype\SymfonyUserTrait;
 use Umber\Authentication\Prototype\UserInterface as CommonUserInterface;
 
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;

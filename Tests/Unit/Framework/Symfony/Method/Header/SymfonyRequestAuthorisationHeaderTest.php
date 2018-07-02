@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Tests\Unit\Framework\Symfony\Bundle\Method\Header;
+namespace Umber\Authentication\Tests\Unit\Framework\Symfony\Method\Header;
 
 use Umber\Common\Exception\ExceptionMessageHelper;
 
 use Umber\Authentication\Exception\Authorisation\MissingCredentialsException;
-use Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader;
+use Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,7 +24,7 @@ final class SymfonyRequestAuthorisationHeaderTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader
+     * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canConstructBasic(): void
     {
@@ -43,7 +43,7 @@ final class SymfonyRequestAuthorisationHeaderTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader
+     * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canHandleTypeCase(): void
     {
@@ -62,7 +62,7 @@ final class SymfonyRequestAuthorisationHeaderTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader
+     * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canCastString(): void
     {
@@ -82,7 +82,7 @@ final class SymfonyRequestAuthorisationHeaderTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader
+     * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
      * @covers \Umber\Authentication\Exception\Authorisation\MissingCredentialsException
      */
     public function withMissingAuthorisationHeaderThrow(): void

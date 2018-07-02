@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Nothing.
 
+## [0.1.3] - 2018-07-02
+
+Initially I thought these classes were in the correct place but then I made a change to make bundle exist in its own directory.
+So it makes sense that these classes are not part of the bundle and can belong outside in the root `Symfony` directory.
+
+### Moved
+- The trait `SymfonyUserTrait` to `Framework\Symfony\Prototype`.
+- The class `SymfonyAuthenticator` to `Framework\Symfony`.
+- The class `SymfonyRequestAuthorisationHeader` to `Framework\Symfony\Method\Header`.
+
+## [0.1.2] - 2018-07-01
+
+This release has no code changes.
+
 ## [0.1.1] - 2018-07-01
 
 ### Added

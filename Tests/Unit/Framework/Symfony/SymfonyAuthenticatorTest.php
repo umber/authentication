@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Tests\Unit\Framework\Symfony\Bundle;
+namespace Umber\Authentication\Tests\Unit\Framework\Symfony;
 
 use Umber\Common\Exception\ExceptionMessageHelper;
 
@@ -11,8 +11,8 @@ use Umber\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyRe
 use Umber\Authentication\Exception\UnauthorisedException;
 use Umber\Authentication\Framework\Modifier\AuthenticatorRoleModifierInterface;
 use Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier;
-use Umber\Authentication\Framework\Symfony\Bundle\Method\Header\SymfonyRequestAuthorisationHeader;
-use Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator;
+use Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader;
+use Umber\Authentication\Framework\Symfony\SymfonyAuthenticator;
 use Umber\Authentication\Resolver\Credential\User\UserCredential;
 use Umber\Authentication\Resolver\CredentialResolverInterface;
 use Umber\Authentication\Storage\CredentialStorageInterface;
@@ -39,7 +39,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
@@ -76,7 +76,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
@@ -121,7 +121,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
@@ -176,7 +176,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      *
@@ -227,7 +227,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      *
@@ -277,7 +277,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
      * @throws \ReflectionException
@@ -335,7 +335,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Authentication\Framework\Symfony\Bundle\SymfonyAuthenticator
+     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      *
      * @throws \ReflectionException
      */

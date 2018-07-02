@@ -10,12 +10,14 @@
 
   "require": {
     "php": ">=7.1",
-    "umber/common": "0.1.x-dev"
+
+    "umber/common": "~0.1",
+
+    "lcobucci/jwt": "~3.2"
   },
 
   "require-dev": {
-    "symfony/security": "~3.4|~4.0",
-    "lcobucci/jwt": "~3.2"
+    "symfony/security": "~3.4 | ~4.0"
   },
 
   "autoload": {

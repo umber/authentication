@@ -13,7 +13,7 @@ interface PermissionInterface
     /**
      * @return RoleInterface[]
      */
-//    public function getParentRoles(): array;
+// public function getParentRoles(): array;
 
     /**
      * @return string[]

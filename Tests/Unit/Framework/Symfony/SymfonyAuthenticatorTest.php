@@ -28,6 +28,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+use ReflectionException;
+
 /**
  * {@inheritdoc}
  */
@@ -42,7 +44,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function withInvalidTokenNoSupport(): void
     {
@@ -79,7 +81,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canSupportPreAuthenticatedTokenOnly(): void
     {
@@ -124,7 +126,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canCreatePreAuthenticatedToken(): void
     {
@@ -180,7 +182,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function withMalformedRequestHeaderThrowUnauthorised(): void
     {
@@ -231,7 +233,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function withMissingRequestHeaderThrowUnauthorised(): void
     {
@@ -280,7 +282,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canAuthenticateToken(): void
     {
@@ -337,7 +339,7 @@ final class SymfonyAuthenticatorTest extends TestCase
      *
      * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canAuthenticateTokenModifiedRoles(): void
     {

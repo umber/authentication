@@ -12,6 +12,7 @@ use Lcobucci\JWT\Claim;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
+use RuntimeException;
 
 /**
  * {@inheritdoc}
@@ -50,7 +51,7 @@ final class TokenProvider implements TokenProviderInterface
         try {
             $builder->sign(new Sha256(), $key);
         } catch (InvalidArgumentException $exception) {
-            throw new \RuntimeException('failed to sign', 0, $exception);
+            throw new RuntimeException('failed to sign', 0, $exception);
         }
 
         $token = new Token($builder->getToken());
@@ -84,7 +85,7 @@ final class TokenProvider implements TokenProviderInterface
         $verified = $parsed->verify(new Sha256(), $key);
 
         if ($verified === false) {
-            throw new \RuntimeException('not verified');
+            throw new RuntimeException('not verified');
         }
 
         $token = new Token($parsed);

@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Lcobucci\JWT\Claim;
 use Lcobucci\JWT\Token as ExternalToken;
+use ReflectionException;
 
 /**
  * {@inheritdoc}
@@ -28,7 +29,7 @@ final class TokenTest extends TestCase
      *
      * @covers \Umber\Authentication\Token\Token
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function checkBasicUsage(): void
     {
@@ -51,7 +52,7 @@ final class TokenTest extends TestCase
      *
      * @covers \Umber\Authentication\Token\Token
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canCheckHasDataNotFound(): void
     {
@@ -75,7 +76,7 @@ final class TokenTest extends TestCase
      *
      * @covers \Umber\Authentication\Token\Token
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canCheckHasDataFound(): void
     {
@@ -116,7 +117,7 @@ final class TokenTest extends TestCase
      * @covers \Umber\Authentication\Token\Token
      * @covers \Umber\Authentication\Exception\Token\TokenMissingDataKeyException
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function withMissingDataGetThrows(): void
     {
@@ -147,7 +148,7 @@ final class TokenTest extends TestCase
      *
      * @covers \Umber\Authentication\Token\Token
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canGetTokenData(): void
     {
@@ -187,7 +188,7 @@ final class TokenTest extends TestCase
      *
      * @covers \Umber\Authentication\Token\Token
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canConvertExternalTokenToString(): void
     {
@@ -214,7 +215,7 @@ final class TokenTest extends TestCase
      *
      * @covers \Umber\Authentication\Token\Token
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canMagicConvertExternalTokenToString(): void
     {

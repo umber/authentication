@@ -72,7 +72,7 @@ final class SymfonyUserTraitTest extends TestCase
 
         self::assertEquals($roles, $class->getRoles());
 
-        //  This will do nothing as per.
+        // This will do nothing as per.
         $class->eraseCredentials();
     }
 }

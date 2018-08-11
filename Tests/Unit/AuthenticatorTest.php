@@ -17,6 +17,8 @@ use Umber\Authentication\Tests\Fixture\AuthorisationHierarchyFixture;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+use ReflectionException;
+
 /**
  * {@inheritdoc}
  */
@@ -30,7 +32,7 @@ final class AuthenticatorTest extends TestCase
      *
      * @covers \Umber\Authentication\Authenticator
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function withNotAuthenticatedNotAuthenticated(): void
     {
@@ -63,7 +65,7 @@ final class AuthenticatorTest extends TestCase
      *
      * @covers \Umber\Authentication\Authenticator
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function withStorageAuthenticatedGetUser(): void
     {
@@ -99,7 +101,7 @@ final class AuthenticatorTest extends TestCase
      *
      * @covers \Umber\Authentication\Authenticator
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canAuthenticateTokenWithCredentials(): void
     {
@@ -149,7 +151,7 @@ final class AuthenticatorTest extends TestCase
      *
      * @covers \Umber\Authentication\Authenticator
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canAuthenticateTokenWithUserCredentials(): void
     {

@@ -9,6 +9,8 @@ services:
 
   umber.authentication.checker.symfony_voter:
     class: 'Umber\Authentication\Security\Entity\SymfonyVoterAuthorisationChecker'
+    arguments:
+      - '@security.helper'
     public: false
 
   umber.authentication.security:

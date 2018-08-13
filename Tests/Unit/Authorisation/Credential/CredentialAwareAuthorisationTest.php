@@ -12,6 +12,8 @@ use Umber\Authentication\Tests\Fixture\AuthorisationHierarchyFixture;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+use ReflectionException;
+
 /**
  * {@inheritdoc}
  */
@@ -25,7 +27,7 @@ final class CredentialAwareAuthorisationTest extends TestCase
      *
      * @covers \Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function checkBasicUsage(): void
     {
@@ -57,7 +59,7 @@ final class CredentialAwareAuthorisationTest extends TestCase
      *
      * @covers \Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canCheckHasRoleMissing(): void
     {
@@ -88,7 +90,7 @@ final class CredentialAwareAuthorisationTest extends TestCase
      *
      * @covers \Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canCheckHasRoleFound(): void
     {
@@ -119,7 +121,7 @@ final class CredentialAwareAuthorisationTest extends TestCase
      *
      * @covers \Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canCheckHasPermissionMissing(): void
     {
@@ -150,7 +152,7 @@ final class CredentialAwareAuthorisationTest extends TestCase
      *
      * @covers \Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canCheckHasPermissionFound(): void
     {
@@ -181,7 +183,7 @@ final class CredentialAwareAuthorisationTest extends TestCase
      *
      * @covers \Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canGetPassivePermissions(): void
     {
@@ -216,7 +218,7 @@ final class CredentialAwareAuthorisationTest extends TestCase
      *
      * @covers \Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canCheckHasPassivePermission(): void
     {
@@ -246,7 +248,7 @@ final class CredentialAwareAuthorisationTest extends TestCase
      *
      * @covers \Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canExpandRolePassivePermissions(): void
     {

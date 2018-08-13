@@ -17,6 +17,8 @@ use Umber\Authentication\Storage\CredentialStorage;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+use ReflectionException;
+
 /**
  * {@inheritdoc}
  */
@@ -114,7 +116,7 @@ final class CredentialStorageTest extends TestCase
      *
      * @covers \Umber\Authentication\Storage\CredentialStorage
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canAuthorise(): void
     {
@@ -137,7 +139,7 @@ final class CredentialStorageTest extends TestCase
      *
      * @covers \Umber\Authentication\Storage\CredentialStorage
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canAuthoriseGetCredentials(): void
     {
@@ -164,7 +166,7 @@ final class CredentialStorageTest extends TestCase
      *
      * @covers \Umber\Authentication\Storage\CredentialStorage
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function canAuthoriseGetAuthorisation(): void
     {
@@ -188,7 +190,7 @@ final class CredentialStorageTest extends TestCase
      * @covers \Umber\Authentication\Storage\CredentialStorage
      * @covers \Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function withBasicAuthorisationCannotGetUser(): void
     {
@@ -222,7 +224,7 @@ final class CredentialStorageTest extends TestCase
      *
      * @covers \Umber\Authentication\Storage\CredentialStorage
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function withUserCredentialsCanGetUser(): void
     {

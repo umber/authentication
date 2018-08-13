@@ -43,7 +43,7 @@ final class PermissionFactory implements PermissionFactoryInterface
             throw PermissionSerialisationNameInvalidException::create($permission);
         }
 
-        list($name, $ability) = explode(':', $permission);
+        [$name, $ability] = explode(':', $permission);
 
         return $this->create($name, [$ability]);
     }

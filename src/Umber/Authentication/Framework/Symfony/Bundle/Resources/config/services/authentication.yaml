@@ -1,0 +1,33 @@
+#
+# Umber Authentication.
+
+services:
+
+  umber.authentication.storage:
+    class: 'Umber\Authentication\Storage\CredentialStorage'
+    public: false
+
+  umber.authentication.checker.symfony_voter:
+    class: 'Umber\Authentication\Security\Entity\SymfonyVoterAuthorisationChecker'
+    arguments:
+      - '@security.helper'
+    public: false
+
+  umber.authentication.security:
+    class: 'Umber\Authentication\Security\Security'
+    arguments:
+      - '@umber.authentication.storage'
+      - '@umber.authentication.checker.symfony_voter'
+    public: false
+
+  umber.authentication.builder.factory.role:
+    class: 'Umber\Authentication\Authorisation\Builder\Factory\RoleFactory'
+    public: false
+
+  umber.authentication.builder.factory.permission:
+    class: 'Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory'
+    public: false
+
+  umber.authentication.modifier.null:
+    class: 'Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier'
+    public: false

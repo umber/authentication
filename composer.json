@@ -1,7 +1,8 @@
 {
   "name": "umber/authentication",
-  "description": "A simplified authentication with implementations for Symfony",
+  "description": "A generic authentication module with (optional) JWT",
   "type": "library",
+  "keywords": ["authentication", "jwt"],
   "license": "MIT",
 
   "authors": [
@@ -23,11 +24,9 @@
 
   "autoload": {
     "psr-4": {
-      "Umber\\Authentication\\": "."
-    },
-    "exclude-from-classmap": [
-      "Tests"
-    ]
+      "Umber\\Authentication\\": "src/Umber/Authentication",
+      "Umber\\Authentication\\Tests\\": "tests/Umber/Authentication/Tests"
+    }
   },
 
   "extra": {

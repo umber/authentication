@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Method\Header;
 
-use Umber\Exception\Message\AbstractMessageRuntimeException;
+use Umber\Common\Exception\AbstractMessageRuntimeException;
 
 /**
  * An exception that is thrown when the header is not formatted correctly.

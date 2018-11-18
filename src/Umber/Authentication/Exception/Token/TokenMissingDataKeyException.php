@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Token;
 
-use Umber\Exception\Message\AbstractMessageRuntimeException;
+use Umber\Common\Exception\AbstractMessageRuntimeException;
 
 /**
  * An exception thrown when token data is missing.

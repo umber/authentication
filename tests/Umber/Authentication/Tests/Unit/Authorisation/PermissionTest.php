@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Authorisation;
 
+use Umber\Common\Exception\ExceptionMessage;
+
 use Umber\Authentication\Authorisation\Permission;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNameInvalidException;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException;
-
-use Umber\Exception\Message\ExceptionMessage;
 
 use PHPUnit\Framework\TestCase;
 

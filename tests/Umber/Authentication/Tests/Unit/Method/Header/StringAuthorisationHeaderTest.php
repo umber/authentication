@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Method\Header;
 
+use Umber\Common\Exception\ExceptionMessage;
+
 use Umber\Authentication\Exception\Method\Header\MalformedAuthorisationHeaderException;
 use Umber\Authentication\Method\Header\StringAuthorisationHeader;
-
-use Umber\Exception\Message\ExceptionMessage;
 
 use PHPUnit\Framework\TestCase;
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Framework\Symfony\Method\Header;
 
+use Umber\Common\Exception\ExceptionMessage;
+
 use Umber\Authentication\Exception\Authorisation\MissingCredentialsException;
 use Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader;
-
-use Umber\Exception\Message\ExceptionMessage;
 
 use Symfony\Component\HttpFoundation\Request;
 

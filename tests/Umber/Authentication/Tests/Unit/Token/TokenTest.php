@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Token;
 
+use Umber\Common\Exception\ExceptionMessage;
+
 use Umber\Authentication\Exception\Token\TokenMissingDataKeyException;
 use Umber\Authentication\Token\Token;
-
-use Umber\Exception\Message\ExceptionMessage;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

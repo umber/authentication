@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation\Builder\Hierarchy;
 
-use Umber\Exception\Message\AbstractMessageRuntimeException;
+use Umber\Common\Exception\AbstractMessageRuntimeException;
 
 /**
  * {@inheritdoc}

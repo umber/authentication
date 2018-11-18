@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception;
 
+use Umber\Common\Exception\AbstractMessageRuntimeException;
 use Umber\Common\Exception\Hint\CanonicalAwareExceptionInterface;
 use Umber\Common\Exception\Hint\HttpAwareExceptionInterface;
-
-use Umber\Exception\Message\AbstractMessageRuntimeException;
 
 use Symfony\Component\HttpFoundation\Response;
 

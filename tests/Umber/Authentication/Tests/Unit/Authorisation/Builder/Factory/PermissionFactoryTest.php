@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Authorisation\Builder\Factory;
 
+use Umber\Common\Exception\ExceptionMessage;
+
 use Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory;
 use Umber\Authentication\Authorisation\Permission;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException;
-
-use Umber\Exception\Message\ExceptionMessage;
 
 use PHPUnit\Framework\TestCase;
 

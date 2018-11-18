@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Framework\Symfony;
 
+use Umber\Common\Exception\ExceptionMessage;
+
 use Umber\Authentication\Authenticator;
 use Umber\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
 use Umber\Authentication\Exception\UnauthorisedException;
@@ -16,8 +18,6 @@ use Umber\Authentication\Resolver\CredentialResolverInterface;
 use Umber\Authentication\Storage\CredentialStorageInterface;
 use Umber\Authentication\Tests\Fixture\AuthorisationHierarchyFixture;
 use Umber\Authentication\Tests\Model\SymfonyUserTestModel;
-
-use Umber\Exception\Message\ExceptionMessage;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;

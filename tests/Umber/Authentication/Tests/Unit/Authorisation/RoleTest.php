@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Authorisation;
 
+use Umber\Common\Exception\ExceptionMessage;
+
 use Umber\Authentication\Authorisation\Role;
 use Umber\Authentication\Exception\Authorisation\Role\RoleNameInvalidException;
-
-use Umber\Exception\Message\ExceptionMessage;
 
 use PHPUnit\Framework\TestCase;
 

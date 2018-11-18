@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Storage;
 
+use Umber\Common\Exception\ExceptionMessage;
+
 use Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisationInterface;
 use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException;
 use Umber\Authentication\Exception\UnauthorisedException;
@@ -11,8 +13,6 @@ use Umber\Authentication\Prototype\UserInterface;
 use Umber\Authentication\Resolver\Credential\CredentialInterface;
 use Umber\Authentication\Resolver\Credential\User\UserCredentialInterface;
 use Umber\Authentication\Storage\CredentialStorage;
-
-use Umber\Exception\Message\ExceptionMessage;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

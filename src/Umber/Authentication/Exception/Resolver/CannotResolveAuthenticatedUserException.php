@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Resolver;
 
-use Umber\Exception\Message\AbstractMessageRuntimeException;
+use Umber\Common\Exception\AbstractMessageRuntimeException;
 
 /**
  * An exception thrown when the user is not resolved with the credentials.

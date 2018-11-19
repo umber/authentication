@@ -12,7 +12,7 @@
   "require": {
     "php": ">=7.1",
 
-    "umber/common": "~0.2",
+    "umber/common": "~0.3.1",
 
     "lcobucci/jwt": "~3.2"
   },

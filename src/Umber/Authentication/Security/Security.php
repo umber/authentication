@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Security;
 
-use Umber\Database\EntityInterface;
-
 use Umber\Authentication\Exception\PermissionDeniedException;
 use Umber\Authentication\Security\Entity\AuthorisationCheckerInterface;
 use Umber\Authentication\Storage\CredentialStorageInterface;
+
+use Umber\Database\EntityInterface;
 
 /**
  * {@inheritdoc}

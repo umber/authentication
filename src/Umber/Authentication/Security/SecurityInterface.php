@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Security;
 
-use Umber\Common\Database\EntityInterface;
+use Umber\Database\EntityInterface;
 
 interface SecurityInterface
 {

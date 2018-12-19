@@ -12,6 +12,7 @@
     "php": ">=7.1",
 
     "umber/common": "~0.1",
+    "umber/database": "~0.1",
 
     "lcobucci/jwt": "~3.2"
   },

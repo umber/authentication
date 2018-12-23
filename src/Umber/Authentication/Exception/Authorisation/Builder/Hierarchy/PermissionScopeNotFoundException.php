@@ -12,7 +12,7 @@ use Umber\Common\Exception\AbstractMessageRuntimeException;
 final class PermissionScopeNotFoundException extends AbstractMessageRuntimeException
 {
     /**
-     * @return DuplicateRoleException
+     * @return PermissionScopeNotFoundException
      */
     public static function create(string $scope): self
     {

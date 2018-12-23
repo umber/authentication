@@ -12,7 +12,7 @@ use Umber\Common\Exception\AbstractMessageRuntimeException;
 final class RoleNotFoundException extends AbstractMessageRuntimeException
 {
     /**
-     * @return DuplicateRoleException
+     * @return RoleNotFoundException
      */
     public static function create(string $role): self
     {

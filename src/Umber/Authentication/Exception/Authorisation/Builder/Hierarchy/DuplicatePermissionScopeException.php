@@ -12,7 +12,7 @@ use Umber\Common\Exception\AbstractMessageRuntimeException;
 final class DuplicatePermissionScopeException extends AbstractMessageRuntimeException
 {
     /**
-     * @return DuplicateRoleException
+     * @return DuplicatePermissionScopeException
      */
     public static function create(string $scope): self
     {

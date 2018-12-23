@@ -12,7 +12,7 @@ use Umber\Common\Exception\AbstractMessageRuntimeException;
 final class PermissionMissingAbilitiesException extends AbstractMessageRuntimeException
 {
     /**
-     * @return DuplicateRoleException
+     * @return PermissionMissingAbilitiesException
      */
     public static function create(string $scope): self
     {

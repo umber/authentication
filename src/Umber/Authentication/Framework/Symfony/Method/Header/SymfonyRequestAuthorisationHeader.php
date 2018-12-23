@@ -29,6 +29,7 @@ final class SymfonyRequestAuthorisationHeader implements AuthorisationHeaderInte
      */
     public function __construct(Request $request)
     {
+        /** @var string|null $string */
         $string = $request->headers->get(self::AUTHORISATION_HEADER, null);
 
         if ($string === null) {

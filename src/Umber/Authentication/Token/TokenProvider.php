@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Token;
 
+use Umber\Authentication\Exception\TokenExpiredException;
 use Umber\Authentication\Token\Key\KeyStorageResolverInterface;
+
+use Umber\Date\Factory\DateTimeFactoryInterface;
 
 use InvalidArgumentException;
 use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Claim;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
+use Lcobucci\JWT\Token as ExternalToken;
+use OutOfBoundsException;
 use RuntimeException;
 
 /**
@@ -20,11 +24,16 @@ use RuntimeException;
 final class TokenProvider implements TokenProviderInterface
 {
     private $keyStorageResolver;
+    private $dateTimeFactory;
     private $ttl;
 
-    public function __construct(KeyStorageResolverInterface $keyStorageResolver, int $ttl)
-    {
+    public function __construct(
+        KeyStorageResolverInterface $keyStorageResolver,
+        DateTimeFactoryInterface $dateTimeFactory,
+        int $ttl
+    ) {
         $this->keyStorageResolver = $keyStorageResolver;
+        $this->dateTimeFactory = $dateTimeFactory;
         $this->ttl = $ttl;
     }
 
@@ -33,9 +42,11 @@ final class TokenProvider implements TokenProviderInterface
      */
     public function create(array $data): TokenInterface
     {
+        $time = $this->dateTimeFactory->create()->getTimestamp();
+
         $builder = new Builder();
-        $builder->setIssuedAt(time());
-        $builder->setExpiration(time() + $this->ttl);
+        $builder->setIssuedAt($time);
+        $builder->setExpiration($time + $this->ttl);
 
         foreach ($data as $name => $value) {
             $builder->set($name, $value);
@@ -67,13 +78,7 @@ final class TokenProvider implements TokenProviderInterface
         $parser = new Parser();
         $parsed = $parser->parse($serialised);
 
-        /** @var Claim[] $claims */
-        $claims = $parsed->getClaims();
-        $data = [];
-
-        foreach ($claims as $claim) {
-            $data[$claim->getName()] = $claim->getValue();
-        }
+        $this->validateTimeToLive($parsed);
 
         $storage = $this->keyStorageResolver->resolve();
 
@@ -91,5 +96,27 @@ final class TokenProvider implements TokenProviderInterface
         $token = new Token($parsed);
 
         return $token;
+    }
+
+    /**
+     * Validate the time TTL is valid for the given token.
+     */
+    private function validateTimeToLive(ExternalToken $token): void
+    {
+        try {
+            $value = $token->getClaim('exp');
+        } catch (OutOfBoundsException $exception) {
+            throw TokenExpiredException::create($exception);
+        }
+
+        // Expire time should be a unix timestamp to expire at.
+        $expiry = (int) $value;
+        $time = $this->dateTimeFactory->create()->getTimestamp();
+
+        if ($expiry >= $time) {
+            return;
+        }
+
+        throw TokenExpiredException::create();
     }
 }

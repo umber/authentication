@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Token;
 
-use Umber\Authentication\Exception\TokenExpiredException;
+use Umber\Authentication\Exception\Token\TokenExpiredException;
 use Umber\Authentication\Token\Key\KeyStorageResolverInterface;
 
 use Umber\Date\Factory\DateTimeFactoryInterface;

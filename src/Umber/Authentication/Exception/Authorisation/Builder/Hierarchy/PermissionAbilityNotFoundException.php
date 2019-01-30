@@ -4,31 +4,21 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation\Builder\Hierarchy;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
- * {@inheritdoc}
+ * An exception thrown when a permission ability is not found.
  */
-final class PermissionAbilityNotFoundException extends AbstractMessageRuntimeException
+final class PermissionAbilityNotFoundException extends Exception
 {
     /**
      * @return PermissionAbilityNotFoundException
      */
     public static function create(string $scope, string $ability): self
     {
-        return new self([
-            'scope' => $scope,
-            'ability' => $ability,
-        ]);
-    }
+        $message = 'The permission ability "%s" was not found against the scope "%s".';
+        $message = sprintf($message, $ability, $scope);
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
-            'The permission ability "{{ability}}" was not found against the scope "{{scope}}".',
-        ];
+        return new self($message);
     }
 }

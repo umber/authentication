@@ -4,30 +4,21 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation\Builder\Hierarchy;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
- * {@inheritdoc}
+ * An exception thrown when a role cannot found.
  */
-final class RoleNotFoundException extends AbstractMessageRuntimeException
+final class RoleNotFoundException extends Exception
 {
     /**
      * @return RoleNotFoundException
      */
     public static function create(string $role): self
     {
-        return new self([
-            'name' => $role,
-        ]);
-    }
+        $message = 'The role "%s" was not found.';
+        $message = sprintf($message, $role);
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
-            'The role "{{name}}" was not found.',
-        ];
+        return new self($message);
     }
 }

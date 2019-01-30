@@ -4,30 +4,21 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Token;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
  * An exception thrown when token data is missing.
  */
-final class TokenMissingDataKeyException extends AbstractMessageRuntimeException
+final class TokenMissingDataKeyException extends Exception
 {
     /**
      * @return TokenMissingDataKeyException
      */
     public static function create(string $key): self
     {
-        return new self([
-            'key' => $key,
-        ]);
-    }
+        $message = 'The authentication token does not have data "%s".';
+        $message = sprintf($message, $key);
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
-            'The authentication token data does not have "{{key}}".',
-        ];
+        return new self($message);
     }
 }

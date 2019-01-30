@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
-use Umber\Common\Exception\Hint\CanonicalAwareExceptionInterface;
-use Umber\Common\Exception\Hint\HttpAwareExceptionInterface;
+use Umber\Authentication\Enum\AuthenticationErrorEnum;
+
+use Umber\Http\Hint\HttpAwareExceptionInterface;
+use Umber\Http\Hint\HttpCanonicalAwareExceptionInterface;
 
 use Symfony\Component\HttpFoundation\Response;
+
+use Exception;
 
 /**
  * An exception thrown when the authorisation header is missing.
  */
-final class MissingCredentialsException extends AbstractMessageRuntimeException implements
-    CanonicalAwareExceptionInterface,
+final class MissingCredentialsException extends Exception implements
+    HttpCanonicalAwareExceptionInterface,
     HttpAwareExceptionInterface
 {
     /**
@@ -22,17 +25,9 @@ final class MissingCredentialsException extends AbstractMessageRuntimeException 
      */
     public static function create(): self
     {
-        return new self([]);
-    }
+        $message = 'The authorisation header is missing from the request.';
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
-            'The authorisation header is missing from the request.',
-        ];
+        return new self($message);
     }
 
     /**
@@ -40,7 +35,7 @@ final class MissingCredentialsException extends AbstractMessageRuntimeException 
      */
     public static function getCanonicalCode(): string
     {
-        return 'http.authorisation.missing_credentials';
+        return AuthenticationErrorEnum::CANONICAL_MISSING_CREDENTIALS;
     }
 
     /**

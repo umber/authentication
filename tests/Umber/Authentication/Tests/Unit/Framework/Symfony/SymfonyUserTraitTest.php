@@ -11,16 +11,16 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
+ *
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Framework\Symfony\Prototype\SymfonyUserTrait
  */
 final class SymfonyUserTraitTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\Prototype\SymfonyUserTrait
      */
     public function canTraitWork(): void
     {

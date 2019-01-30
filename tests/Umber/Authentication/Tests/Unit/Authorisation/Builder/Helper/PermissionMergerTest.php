@@ -12,7 +12,10 @@ use Umber\Authentication\Authorisation\Permission;
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Authorisation\Builder\Helper\PermissionMerger
  */
 final class PermissionMergerTest extends TestCase
 {
@@ -29,11 +32,6 @@ final class PermissionMergerTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\Helper\PermissionMerger
      */
     public function canMergeSameRemoveDuplicate(): void
     {
@@ -53,11 +51,6 @@ final class PermissionMergerTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\Helper\PermissionMerger
      */
     public function canMergeSameScopeDifferentAbilities(): void
     {
@@ -80,11 +73,6 @@ final class PermissionMergerTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\Helper\PermissionMerger
      */
     public function canMergeSameAbilities(): void
     {

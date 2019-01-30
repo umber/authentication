@@ -4,25 +4,21 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Authorisation;
 
-use Umber\Common\Exception\ExceptionMessage;
-
 use Umber\Authentication\Authorisation\Role;
 use Umber\Authentication\Exception\Authorisation\Role\RoleNameInvalidException;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Authorisation\Role
  */
 final class RoleTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Role
      */
     public function checkBasicUsage(): void
     {
@@ -34,11 +30,6 @@ final class RoleTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Role
      */
     public function withUpperCaseLowerCase(): void
     {
@@ -48,6 +39,8 @@ final class RoleTest extends TestCase
     }
 
     /**
+     * Data provider.
+     *
      * @return string[][]
      */
     public function provideWithInvalidRoleNameThrow(): array
@@ -72,26 +65,22 @@ final class RoleTest extends TestCase
      *
      * @dataProvider provideWithInvalidRoleNameThrow
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Role
      * @covers \Umber\Authentication\Exception\Authorisation\Role\RoleNameInvalidException
      */
     public function withInvalidRoleNameThrow(string $name): void
     {
         self::expectException(RoleNameInvalidException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                RoleNameInvalidException::message(),
-                ['name' => $name]
-            )
-        );
+        self::expectExceptionMessage(implode(' ', [
+            'A role name should only contain alphabetic characters and hyphens or underscores.',
+            sprintf('The role name "%s" is invalid.', $name),
+        ]));
 
         new Role($name, []);
     }
 
     /**
+     * Data provider.
+     *
      * @return string[][]
      */
     public function provideWithValidNameAllow(): array
@@ -108,11 +97,6 @@ final class RoleTest extends TestCase
      * @test
      *
      * @dataProvider provideWithValidNameAllow
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Role
      */
     public function withValidNameAllow(string $name): void
     {

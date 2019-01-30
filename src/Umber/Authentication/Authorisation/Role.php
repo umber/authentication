@@ -18,6 +18,8 @@ final class Role implements RoleInterface
 
     /**
      * @param PermissionInterface[] $permissions
+     *
+     * @throws RoleNameInvalidException
      */
     public function __construct(string $name, array $permissions)
     {

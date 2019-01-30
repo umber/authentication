@@ -6,6 +6,8 @@ namespace Umber\Authentication\Authorisation\Builder\Helper;
 
 use Umber\Authentication\Authorisation\Builder\Factory\PermissionFactoryInterface;
 use Umber\Authentication\Authorisation\PermissionInterface;
+use Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNameInvalidException;
+use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException;
 
 /**
  * A permission helper for merging and removing duplicates.
@@ -21,6 +23,9 @@ final class PermissionMerger
      * @param PermissionInterface[] $permissions
      *
      * @return PermissionInterface[]
+     *
+     * @throws PermissionAbilityNameInvalidException
+     * @throws PermissionScopeNameInvalidException
      */
     public static function merge(PermissionFactoryInterface $factory, array $permissions): array
     {

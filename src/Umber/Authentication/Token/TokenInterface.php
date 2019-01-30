@@ -14,7 +14,7 @@ interface TokenInterface
     /**
      * Return the token data by key.
      *
-     * @throws TokenMissingDataKeyException When the key does not exist.
+     * @throws TokenMissingDataKeyException
      */
     public function get(string $key): string;
 

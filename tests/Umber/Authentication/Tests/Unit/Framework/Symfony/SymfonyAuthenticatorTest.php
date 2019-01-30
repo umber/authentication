@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Framework\Symfony;
 
-use Umber\Common\Exception\ExceptionMessage;
-
 use Umber\Authentication\Authenticator;
 use Umber\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
 use Umber\Authentication\Exception\UnauthorisedException;
@@ -28,23 +26,18 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-use ReflectionException;
-
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
  */
 final class SymfonyAuthenticatorTest extends TestCase
 {
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
-     *
-     * @throws ReflectionException
      */
     public function withInvalidTokenNoSupport(): void
     {
@@ -75,13 +68,7 @@ final class SymfonyAuthenticatorTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
-     *
-     * @throws ReflectionException
      */
     public function canSupportPreAuthenticatedTokenOnly(): void
     {
@@ -120,13 +107,7 @@ final class SymfonyAuthenticatorTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
-     *
-     * @throws ReflectionException
      */
     public function canCreatePreAuthenticatedToken(): void
     {
@@ -175,14 +156,8 @@ final class SymfonyAuthenticatorTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
-     *
-     * @throws ReflectionException
      */
     public function withMalformedRequestHeaderThrowUnauthorised(): void
     {
@@ -214,11 +189,7 @@ final class SymfonyAuthenticatorTest extends TestCase
         $request->headers->set(SymfonyRequestAuthorisationHeader::AUTHORISATION_HEADER, 'malformed-value');
 
         self::expectException(UnauthorisedException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                UnauthorisedException::message()
-            )
-        );
+        self::expectExceptionMessage('Your credentials are invalid.');
 
         $symfony->createToken($request, 'provider');
     }
@@ -226,14 +197,8 @@ final class SymfonyAuthenticatorTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
      * @covers \Umber\Authentication\Exception\UnauthorisedException
-     *
-     * @throws ReflectionException
      */
     public function withMissingRequestHeaderThrowUnauthorised(): void
     {
@@ -264,11 +229,7 @@ final class SymfonyAuthenticatorTest extends TestCase
         $request = new Request();
 
         self::expectException(UnauthorisedException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                UnauthorisedException::message()
-            )
-        );
+        self::expectExceptionMessage('Your credentials are invalid.');
 
         $symfony->createToken($request, 'provider');
     }
@@ -276,13 +237,7 @@ final class SymfonyAuthenticatorTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
      * @covers \Umber\Authentication\Framework\Modifier\NullAuthenticatorRoleModifier
-     *
-     * @throws ReflectionException
      */
     public function canAuthenticateToken(): void
     {
@@ -333,13 +288,6 @@ final class SymfonyAuthenticatorTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\SymfonyAuthenticator
-     *
-     * @throws ReflectionException
      */
     public function canAuthenticateTokenModifiedRoles(): void
     {

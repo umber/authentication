@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Token;
 
-use Umber\Common\Exception\ExceptionMessage;
-
 use Umber\Authentication\Exception\Token\TokenMissingDataKeyException;
 use Umber\Authentication\Token\Token;
 
@@ -14,22 +12,17 @@ use PHPUnit\Framework\TestCase;
 
 use Lcobucci\JWT\Claim;
 use Lcobucci\JWT\Token as ExternalToken;
-use ReflectionException;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Token\Token
  */
 final class TokenTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Token
-     *
-     * @throws ReflectionException
      */
     public function checkBasicUsage(): void
     {
@@ -46,13 +39,6 @@ final class TokenTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Token
-     *
-     * @throws ReflectionException
      */
     public function canCheckHasDataNotFound(): void
     {
@@ -70,13 +56,6 @@ final class TokenTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Token
-     *
-     * @throws ReflectionException
      */
     public function canCheckHasDataFound(): void
     {
@@ -111,13 +90,7 @@ final class TokenTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Token
      * @covers \Umber\Authentication\Exception\Token\TokenMissingDataKeyException
-     *
-     * @throws ReflectionException
      */
     public function withMissingDataGetThrows(): void
     {
@@ -130,25 +103,13 @@ final class TokenTest extends TestCase
         $token = new Token($external);
 
         self::expectException(TokenMissingDataKeyException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                TokenMissingDataKeyException::message(),
-                ['key' => 'test']
-            )
-        );
+        self::expectExceptionMessage('The authentication token does not have data "test".');
 
         $token->get('test');
     }
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Token
-     *
-     * @throws ReflectionException
      */
     public function canGetTokenData(): void
     {
@@ -182,13 +143,6 @@ final class TokenTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Token
-     *
-     * @throws ReflectionException
      */
     public function canConvertExternalTokenToString(): void
     {
@@ -209,13 +163,6 @@ final class TokenTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Token
-     *
-     * @throws ReflectionException
      */
     public function canMagicConvertExternalTokenToString(): void
     {

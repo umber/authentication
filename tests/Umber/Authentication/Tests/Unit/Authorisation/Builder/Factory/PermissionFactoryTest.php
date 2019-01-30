@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Authorisation\Builder\Factory;
 
-use Umber\Common\Exception\ExceptionMessage;
-
 use Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory;
 use Umber\Authentication\Authorisation\Permission;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException;
@@ -13,17 +11,15 @@ use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisat
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory
  */
 final class PermissionFactoryTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory
      */
     public function canCreatePermission(): void
     {
@@ -35,11 +31,6 @@ final class PermissionFactoryTest extends TestCase
     }
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory
      */
     public function canCreatePermissionFromString(): void
     {
@@ -52,21 +43,16 @@ final class PermissionFactoryTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory
      * @covers \Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException
      */
     public function withPermissionStringInvalidThrow(): void
     {
         self::expectException(PermissionSerialisationNameInvalidException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionSerialisationNameInvalidException::message(),
-                ['permission' => 'product/view']
-            )
-        );
+        self::expectExceptionMessage(implode(' ', [
+            'A transportable permission name should contain its ability.',
+            'This is done using the format "permission:ability". Multiple abilities are possible through multiple entries of the same name.',
+            'The permission "product/view" is invalid.',
+        ]));
 
         (new PermissionFactory())->createFromString('product/view');
     }

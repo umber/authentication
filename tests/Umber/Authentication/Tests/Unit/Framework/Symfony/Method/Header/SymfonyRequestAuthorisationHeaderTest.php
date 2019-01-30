@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Framework\Symfony\Method\Header;
 
-use Umber\Common\Exception\ExceptionMessage;
-
 use Umber\Authentication\Exception\Authorisation\MissingCredentialsException;
+use Umber\Authentication\Exception\Method\Header\MalformedAuthorisationHeaderException;
 use Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -14,17 +13,15 @@ use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
  */
 final class SymfonyRequestAuthorisationHeaderTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canConstructBasic(): void
     {
@@ -39,11 +36,6 @@ final class SymfonyRequestAuthorisationHeaderTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canHandleTypeCase(): void
     {
@@ -58,11 +50,6 @@ final class SymfonyRequestAuthorisationHeaderTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
      */
     public function canCastString(): void
     {
@@ -79,19 +66,29 @@ final class SymfonyRequestAuthorisationHeaderTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader
      * @covers \Umber\Authentication\Exception\Authorisation\MissingCredentialsException
      */
     public function withMissingAuthorisationHeaderThrow(): void
     {
         self::expectException(MissingCredentialsException::class);
-        self::expectExceptionMessage(ExceptionMessage::translate(
-            MissingCredentialsException::message()
-        ));
+        self::expectExceptionMessage('The authorisation header is missing from the request.');
 
         new SymfonyRequestAuthorisationHeader(new Request());
+    }
+
+    /**
+     * @test
+     *
+     * @covers \Umber\Authentication\Exception\Method\Header\MalformedAuthorisationHeaderException
+     */
+    public function withMalformedAuthorisationHeaderThrow(): void
+    {
+        $request = new Request();
+        $request->headers->set(SymfonyRequestAuthorisationHeader::AUTHORISATION_HEADER, 'invalid');
+
+        self::expectException(MalformedAuthorisationHeaderException::class);
+        self::expectExceptionMessage('The authentication header "invalid" is malformed.');
+
+        new SymfonyRequestAuthorisationHeader($request);
     }
 }

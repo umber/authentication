@@ -5,6 +5,12 @@ declare(strict_types=1);
 namespace Umber\Authentication\Authorisation;
 
 use Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy;
+use Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionAbilityNotFoundException;
+use Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException;
+use Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\RoleNotFoundException;
+use Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNameInvalidException;
+use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException;
+use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException;
 use Umber\Authentication\Utility\NameNormaliser;
 
 /**
@@ -24,6 +30,13 @@ final class Authorisation implements AuthorisationInterface
     /**
      * @param string[] $roles
      * @param string[] $permissions
+     *
+     * @throws RoleNotFoundException
+     * @throws PermissionAbilityNotFoundException
+     * @throws PermissionScopeNotFoundException
+     * @throws PermissionAbilityNameInvalidException
+     * @throws PermissionScopeNameInvalidException
+     * @throws PermissionSerialisationNameInvalidException
      */
     public function __construct(array $roles, array $permissions, AuthorisationHierarchy $hierarchy)
     {

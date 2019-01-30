@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
-use Umber\Common\Exception\Hint\CanonicalAwareExceptionInterface;
-use Umber\Common\Exception\Hint\HttpAwareExceptionInterface;
+use Umber\Authentication\Enum\AuthenticationErrorEnum;
+
+use Umber\Http\Hint\HttpAwareExceptionInterface;
+use Umber\Http\Hint\HttpCanonicalAwareExceptionInterface;
 
 use Symfony\Component\HttpFoundation\Response;
 
+use Exception;
 use Throwable;
 
 /**
- * {@inheritdoc}
+ * An unauthorised exception thrown whilst attempting to authenticate.
+ *
+ * Exceptions defined in the umber bundles are framework agnostic and therefore should be
+ * handled accordingly depending on your framework. For example if you are using this
+ * authentication code in Symfony you should wrap this exception in HttpException.
  */
-final class UnauthorisedException extends AbstractMessageRuntimeException implements
-    CanonicalAwareExceptionInterface,
+final class UnauthorisedException extends Exception implements
+    HttpCanonicalAwareExceptionInterface,
     HttpAwareExceptionInterface
 {
     /**
@@ -24,17 +30,9 @@ final class UnauthorisedException extends AbstractMessageRuntimeException implem
      */
     public static function create(?Throwable $previous = null): self
     {
-        return new self([], null, $previous);
-    }
+        $message = 'Your credentials are invalid.';
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
-            'Your credentials are invalid.',
-        ];
+        return new self($message, 0, $previous);
     }
 
     /**
@@ -42,7 +40,7 @@ final class UnauthorisedException extends AbstractMessageRuntimeException implem
      */
     public static function getCanonicalCode(): string
     {
-        return 'http.authorisation.unauthorised';
+        return AuthenticationErrorEnum::CANONICAL_UNAUTHORISED;
     }
 
     /**

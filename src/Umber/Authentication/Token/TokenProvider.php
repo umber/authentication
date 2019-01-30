@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Token;
 
-use Umber\Authentication\Exception\TokenExpiredException;
+use Umber\Authentication\Exception\Token\TokenExpiredException;
+use Umber\Authentication\Exception\Token\TokenNotVerifiedException;
 use Umber\Authentication\Token\Key\KeyStorageResolverInterface;
 
 use Umber\Date\Factory\DateTimeFactoryInterface;
@@ -16,7 +17,6 @@ use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Token as ExternalToken;
 use OutOfBoundsException;
-use RuntimeException;
 
 /**
  * {@inheritdoc}
@@ -62,7 +62,7 @@ final class TokenProvider implements TokenProviderInterface
         try {
             $builder->sign(new Sha256(), $key);
         } catch (InvalidArgumentException $exception) {
-            throw new RuntimeException('failed to sign', 0, $exception);
+            throw TokenNotVerifiedException::create($exception);
         }
 
         $token = new Token($builder->getToken());
@@ -90,7 +90,7 @@ final class TokenProvider implements TokenProviderInterface
         $verified = $parsed->verify(new Sha256(), $key);
 
         if ($verified === false) {
-            throw new RuntimeException('not verified');
+            throw TokenNotVerifiedException::create();
         }
 
         $token = new Token($parsed);
@@ -100,6 +100,8 @@ final class TokenProvider implements TokenProviderInterface
 
     /**
      * Validate the time TTL is valid for the given token.
+     *
+     * @throws TokenExpiredException
      */
     private function validateTimeToLive(ExternalToken $token): void
     {

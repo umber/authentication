@@ -4,28 +4,20 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Resolver;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
  * An exception that is thrown when the resolver fails for the authentication method.
  */
-final class CannotResolveAuthenticationMethodException extends AbstractMessageRuntimeException
+final class CannotResolveAuthenticationMethodException extends Exception
 {
     /**
      * @return CannotResolveAuthenticationMethodException
      */
     public static function create(): self
     {
-        return new self([]);
-    }
+        $message = 'The authentication method provided did not resolve.';
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
-            'The authentication method provided did not resolve.',
-        ];
+        return new self($message);
     }
 }

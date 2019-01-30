@@ -11,9 +11,9 @@
   "require": {
     "php": ">=7.1",
 
-    "umber/common": "^1.0",
+    "umber/common": "^1.2",
     "umber/database": "^1.0",
-    "umber/http": "^1.0",
+    "umber/http": "^1.2",
 
     "lcobucci/jwt": "~3.2"
   },

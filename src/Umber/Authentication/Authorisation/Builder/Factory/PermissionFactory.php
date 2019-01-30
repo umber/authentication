@@ -25,7 +25,7 @@ final class PermissionFactory implements PermissionFactoryInterface
     {
         $scope = NameNormaliser::normalisePermissionScope($scope);
 
-        $abilities = array_map(function ($value) {
+        $abilities = array_map(static function ($value) {
             return NameNormaliser::normalisePermissionAbility($value);
         }, $abilities);
 

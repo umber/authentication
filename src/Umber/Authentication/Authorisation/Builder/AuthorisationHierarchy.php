@@ -15,6 +15,10 @@ use Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionAbi
 use Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionMissingAbilitiesException;
 use Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException;
 use Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\RoleNotFoundException;
+use Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNameInvalidException;
+use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException;
+use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException;
+use Umber\Authentication\Exception\Authorisation\Role\RoleNameInvalidException;
 use Umber\Authentication\Utility\NameNormaliser;
 
 /**
@@ -41,8 +45,10 @@ final class AuthorisationHierarchy
      *
      * @param string[] $abilities
      *
-     * @throws DuplicatePermissionScopeException
+     * @throws PermissionAbilityNameInvalidException
      * @throws PermissionMissingAbilitiesException
+     * @throws PermissionScopeNameInvalidException
+     * @throws DuplicatePermissionScopeException
      */
     public function addPermission(string $scope, array $abilities): void
     {
@@ -68,7 +74,14 @@ final class AuthorisationHierarchy
      * @param string[] $roles
      * @param string[] $permissions
      *
+     * @throws RoleNameInvalidException
+     * @throws RoleNotFoundException
      * @throws DuplicateRoleException
+     * @throws PermissionAbilityNameInvalidException
+     * @throws PermissionAbilityNotFoundException
+     * @throws PermissionScopeNameInvalidException
+     * @throws PermissionScopeNotFoundException
+     * @throws PermissionSerialisationNameInvalidException
      */
     public function addRole(string $name, array $roles, array $permissions): void
     {
@@ -173,6 +186,11 @@ final class AuthorisationHierarchy
      *
      * The permission returned is a newly constructed permission using the factory.
      * The permission will contain only the ability provided.
+     *
+     * @throws PermissionAbilityNameInvalidException
+     * @throws PermissionAbilityNotFoundException
+     * @throws PermissionScopeNameInvalidException
+     * @throws PermissionScopeNotFoundException
      */
     public function getPermissionAbility(string $scope, string $ability): PermissionInterface
     {
@@ -195,6 +213,8 @@ final class AuthorisationHierarchy
      * @param string[] $roles
      *
      * @return RoleInterface[]
+     *
+     * @throws RoleNotFoundException
      */
     public function resolveRolesByArray(array $roles): array
     {
@@ -213,6 +233,12 @@ final class AuthorisationHierarchy
      * @param string[] $permissions
      *
      * @return PermissionInterface[]
+     *
+     * @throws PermissionAbilityNotFoundException
+     * @throws PermissionAbilityNameInvalidException
+     * @throws PermissionScopeNameInvalidException
+     * @throws PermissionSerialisationNameInvalidException
+     * @throws PermissionScopeNotFoundException
      */
     public function resolvePermissionsByArray(array $permissions): array
     {
@@ -238,6 +264,9 @@ final class AuthorisationHierarchy
      * @param PermissionInterface[] $permissions
      *
      * @return PermissionInterface[]
+     *
+     * @throws PermissionAbilityNameInvalidException
+     * @throws PermissionScopeNameInvalidException
      */
     private function merge(array $permissions): array
     {

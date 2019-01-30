@@ -23,22 +23,22 @@ interface CredentialStorageInterface
     /**
      * Return the authorised credentials.
      *
-     * @throws UnauthorisedException When the credentials are not authenticated.
+     * @throws UnauthorisedException
      */
     public function getCredentials(): CredentialInterface;
 
     /**
      * Return the user authorisation.
      *
-     * @throws UnauthorisedException When the credentials are not authenticated.
+     * @throws UnauthorisedException
      */
     public function getAuthorisation(): CredentialAwareAuthorisationInterface;
 
     /**
      * Return the authenticated user.
      *
-     * @throws UnauthorisedException When the credentials are not authenticated.
-     * @throws CannotResolveAuthenticatedUserException When the user is not resolved with the credentials.
+     * @throws UnauthorisedException
+     * @throws CannotResolveAuthenticatedUserException
      */
     public function getUser(): UserInterface;
 

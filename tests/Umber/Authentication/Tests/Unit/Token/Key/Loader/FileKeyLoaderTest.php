@@ -9,17 +9,15 @@ use Umber\Authentication\Token\Key\Loader\FileKeyLoader;
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Token\Key\Loader\FileKeyLoader
  */
 final class FileKeyLoaderTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Key\Loader\FileKeyLoader
      */
     public function canLoadFileContents(): void
     {

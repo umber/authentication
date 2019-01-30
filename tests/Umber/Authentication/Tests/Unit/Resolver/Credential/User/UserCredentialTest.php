@@ -10,22 +10,16 @@ use Umber\Authentication\Resolver\Credential\User\UserCredential;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-use ReflectionException;
-
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Resolver\Credential\User\UserCredential
  */
 final class UserCredentialTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Resolver\Credential\User\UserCredential
-     *
-     * @throws ReflectionException
      */
     public function checkBasicUsage(): void
     {

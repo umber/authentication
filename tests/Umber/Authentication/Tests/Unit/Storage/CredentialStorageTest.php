@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Storage;
 
-use Umber\Common\Exception\ExceptionMessage;
-
 use Umber\Authentication\Authorisation\Credential\CredentialAwareAuthorisationInterface;
 use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException;
 use Umber\Authentication\Exception\UnauthorisedException;
@@ -17,20 +15,16 @@ use Umber\Authentication\Storage\CredentialStorage;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-use ReflectionException;
-
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Storage\CredentialStorage
  */
 final class CredentialStorageTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
      */
     public function withFreshInstanceNotAuthenticated(): void
     {
@@ -42,10 +36,6 @@ final class CredentialStorageTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      */
     public function withFreshInstanceCannotGetCredentials(): void
@@ -53,11 +43,7 @@ final class CredentialStorageTest extends TestCase
         $storage = new CredentialStorage();
 
         self::expectException(UnauthorisedException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                UnauthorisedException::message()
-            )
-        );
+        self::expectExceptionMessage('Your credentials are invalid.');
 
         $storage->getCredentials();
     }
@@ -65,10 +51,6 @@ final class CredentialStorageTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      */
     public function withFreshInstanceCannotGetAuthorisation(): void
@@ -76,11 +58,7 @@ final class CredentialStorageTest extends TestCase
         $storage = new CredentialStorage();
 
         self::expectException(UnauthorisedException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                UnauthorisedException::message()
-            )
-        );
+        self::expectExceptionMessage('Your credentials are invalid.');
 
         $storage->getAuthorisation();
     }
@@ -88,10 +66,6 @@ final class CredentialStorageTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
      * @covers \Umber\Authentication\Exception\UnauthorisedException
      */
     public function withFreshInstanceCannotGetUser(): void
@@ -99,24 +73,13 @@ final class CredentialStorageTest extends TestCase
         $storage = new CredentialStorage();
 
         self::expectException(UnauthorisedException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                UnauthorisedException::message()
-            )
-        );
+        self::expectExceptionMessage('Your credentials are invalid.');
 
         $storage->getUser();
     }
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
-     *
-     * @throws ReflectionException
      */
     public function canAuthorise(): void
     {
@@ -133,13 +96,6 @@ final class CredentialStorageTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
-     *
-     * @throws ReflectionException
      */
     public function canAuthoriseGetCredentials(): void
     {
@@ -160,13 +116,6 @@ final class CredentialStorageTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
-     *
-     * @throws ReflectionException
      */
     public function canAuthoriseGetAuthorisation(): void
     {
@@ -184,13 +133,7 @@ final class CredentialStorageTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
      * @covers \Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException
-     *
-     * @throws ReflectionException
      */
     public function withBasicAuthorisationCannotGetUser(): void
     {
@@ -207,24 +150,13 @@ final class CredentialStorageTest extends TestCase
         $storage->authorise($authorisation);
 
         self::expectException(CannotResolveAuthenticatedUserException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                CannotResolveAuthenticatedUserException::message()
-            )
-        );
+        self::expectExceptionMessage('The authentication resolver did not provide the user.');
 
         $storage->getUser();
     }
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Storage\CredentialStorage
-     *
-     * @throws ReflectionException
      */
     public function withUserCredentialsCanGetUser(): void
     {

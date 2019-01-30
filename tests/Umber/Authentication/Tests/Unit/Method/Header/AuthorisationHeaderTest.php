@@ -9,17 +9,15 @@ use Umber\Authentication\Method\Header\AuthorisationHeader;
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Method\Header\AuthorisationHeader
  */
 final class AuthorisationHeaderTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Method\Header\AuthorisationHeader
      */
     public function canConstructBasic(): void
     {
@@ -31,11 +29,6 @@ final class AuthorisationHeaderTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Method\Header\AuthorisationHeader
      */
     public function canHandleTypeCase(): void
     {
@@ -47,11 +40,6 @@ final class AuthorisationHeaderTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Method\Header\AuthorisationHeader
      */
     public function canCastString(): void
     {

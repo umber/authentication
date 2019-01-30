@@ -11,17 +11,15 @@ use Umber\Authentication\Authorisation\Role;
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Authorisation\Builder\Factory\RoleFactory
  */
 final class RoleFactoryTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\Factory\RoleFactory
      */
     public function canCreateEmptyRole(): void
     {
@@ -34,11 +32,6 @@ final class RoleFactoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\Factory\RoleFactory
      */
     public function canCreateWithPassivePermissions(): void
     {

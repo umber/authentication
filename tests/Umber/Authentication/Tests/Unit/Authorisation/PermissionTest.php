@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Authorisation;
 
-use Umber\Common\Exception\ExceptionMessage;
-
 use Umber\Authentication\Authorisation\Permission;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNameInvalidException;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException;
@@ -13,17 +11,15 @@ use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameI
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Authorisation\Permission
  */
 final class PermissionTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function checkBasicUsage(): void
     {
@@ -35,11 +31,6 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function withUpperCaseLowerCase(): void
     {
@@ -50,11 +41,6 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function withUpperCaseAbilityLowerCase(): void
     {
@@ -68,11 +54,6 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function withWildcardAbilityRemoveOtherAbilities(): void
     {
@@ -88,11 +69,6 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function checkWithAbilities(): void
     {
@@ -111,11 +87,6 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function canCheckAbilityMissing(): void
     {
@@ -129,11 +100,6 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function canCheckAbilityFound(): void
     {
@@ -147,11 +113,6 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function canCheckAbilityWildcard(): void
     {
@@ -163,6 +124,8 @@ final class PermissionTest extends TestCase
     }
 
     /**
+     * Data provider.
+     *
      * @return string[][]
      */
     public function provideWithInvalidPermissionNameThrow(): array
@@ -187,26 +150,22 @@ final class PermissionTest extends TestCase
      *
      * @dataProvider provideWithInvalidPermissionNameThrow
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      * @covers \Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException
      */
     public function withInvalidPermissionNameThrow(string $scope): void
     {
         self::expectException(PermissionScopeNameInvalidException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionScopeNameInvalidException::message(),
-                ['scope' => $scope]
-            )
-        );
+        self::expectExceptionMessage(implode(' ', [
+            'A permission scope name should only contain alphabetic characters and hyphens or underscores.',
+            sprintf('The permission scope name provided "%s" is invalid.', $scope),
+        ]));
 
         new Permission($scope, []);
     }
 
     /**
+     * Data provider.
+     *
      * @return string[][]
      */
     public function provideWithValidNameAllow(): array
@@ -223,11 +182,6 @@ final class PermissionTest extends TestCase
      * @test
      *
      * @dataProvider provideWithValidNameAllow
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      */
     public function withValidNameAllow(string $name): void
     {
@@ -237,6 +191,8 @@ final class PermissionTest extends TestCase
     }
 
     /**
+     * Data provider.
+     *
      * @return string[][]
      */
     public function provideWithInvalidPermissionAbilityThrow(): array
@@ -261,29 +217,22 @@ final class PermissionTest extends TestCase
      *
      * @dataProvider provideWithInvalidPermissionAbilityThrow
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Permission
      * @covers \Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNameInvalidException
      */
     public function withInvalidPermissionAbilityThrow(string $ability): void
     {
         self::expectException(PermissionAbilityNameInvalidException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionAbilityNameInvalidException::message(),
-                [
-                    'scope' => 'permission-name',
-                    'ability' => $ability,
-                ]
-            )
-        );
+        self::expectExceptionMessage(implode(' ', [
+            'A permission ability should only contain alphabetic characters and hyphens or underscores.',
+            sprintf('The permission ability "%s" is invalid for scope "permission-name".', $ability),
+        ]));
 
         new Permission('permission-name', [$ability]);
     }
 
     /**
+     * Data provider.
+     *
      * @return string[][]
      */
     public function provideWithValidPermissionAbilityAllow(): array
@@ -300,9 +249,6 @@ final class PermissionTest extends TestCase
      * @test
      *
      * @dataProvider provideWithValidPermissionAbilityAllow
-     *
-     * @group unit
-     * @group authentication
      */
     public function withValidPermissionAbilityAllow(string $ability): void
     {

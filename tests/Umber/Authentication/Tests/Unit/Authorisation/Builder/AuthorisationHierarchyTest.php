@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Tests\Unit\Authorisation\Builder;
 
-use Umber\Common\Exception\ExceptionMessage;
-
 use Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy;
 use Umber\Authentication\Authorisation\Builder\Factory\PermissionFactory;
 use Umber\Authentication\Authorisation\Builder\Factory\RoleFactory;
@@ -21,7 +19,10 @@ use Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\RoleNotFoundE
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
  */
 final class AuthorisationHierarchyTest extends TestCase
 {
@@ -41,11 +42,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetEmptyRoles(): void
     {
@@ -54,11 +50,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetEmptyPermissions(): void
     {
@@ -67,11 +58,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canNotFindMissingRole(): void
     {
@@ -80,11 +66,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canNotFindMissingPermission(): void
     {
@@ -94,21 +75,12 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\RoleNotFoundException
      */
     public function whenGetRoleMissingThrow(): void
     {
         self::expectException(RoleNotFoundException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                RoleNotFoundException::message(),
-                ['name' => 'admin']
-            )
-        );
+        self::expectExceptionMessage('The role "admin" was not found.');
 
         $this->hierarchy->getRole('admin');
     }
@@ -116,21 +88,12 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenGetPermissionMissingThrow(): void
     {
         self::expectException(PermissionScopeNotFoundException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionScopeNotFoundException::message(),
-                ['scope' => 'product']
-            )
-        );
+        self::expectExceptionMessage('The permission scope "product" was not found.');
 
         $this->hierarchy->getPermission('product');
     }
@@ -138,32 +101,21 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionMissingAbilitiesException
      */
     public function whenCreatePermissionEmptyAbilitiesThrow(): void
     {
         self::expectException(PermissionMissingAbilitiesException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionMissingAbilitiesException::message(),
-                ['scope' => 'product']
-            )
-        );
+        self::expectExceptionMessage(implode(' ', [
+            'The hierarchy expects that all permissions come with at least one ability.',
+            'The permission scope "product" has no abilities assigned to it so is considered useless.',
+        ]));
 
         $this->hierarchy->addPermission('product', []);
     }
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCreatePermission(): void
     {
@@ -179,21 +131,15 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\DuplicatePermissionScopeException
      */
     public function whenCreatingDuplicatePermissionThrow(): void
     {
         self::expectException(DuplicatePermissionScopeException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                DuplicatePermissionScopeException::message(),
-                ['scope' => 'product']
-            )
-        );
+        self::expectExceptionMessage(implode(' ', [
+            'The hierarchy cannot contain duplicate permission scopes.',
+            'The permission scope "product" has already been defined and cannot be overwritten or merged.',
+        ]));
 
         $this->hierarchy->addPermission('product', ['view']);
         $this->hierarchy->addPermission('product', ['view']);
@@ -201,11 +147,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCheckHasNewPermission(): void
     {
@@ -217,11 +158,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetPermissionByScope(): void
     {
@@ -235,21 +171,12 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenGetPermissionAbilityMissingScope(): void
     {
         self::expectException(PermissionScopeNotFoundException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionScopeNotFoundException::message(),
-                ['scope' => 'product']
-            )
-        );
+        self::expectExceptionMessage('The permission scope "product" was not found.');
 
         $this->hierarchy->getPermissionAbility('product', 'view');
     }
@@ -257,10 +184,6 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionAbilityNotFoundException
      */
     public function whenGetPermissionAbilityMissingPermissionAbility(): void
@@ -268,26 +191,13 @@ final class AuthorisationHierarchyTest extends TestCase
         $this->hierarchy->addPermission('product', ['create']);
 
         self::expectException(PermissionAbilityNotFoundException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionAbilityNotFoundException::message(),
-                [
-                    'scope' => 'product',
-                    'ability' => 'view',
-                ]
-            )
-        );
+        self::expectExceptionMessage('The permission ability "view" was not found against the scope "product".');
 
         $this->hierarchy->getPermissionAbility('product', 'view');
     }
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetPermissionAbility(): void
     {
@@ -304,11 +214,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCreateEmptyRoles(): void
     {
@@ -326,21 +231,15 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\DuplicateRoleException
      */
     public function whenCreatingDuplicateRoleThrow(): void
     {
         self::expectException(DuplicateRoleException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                DuplicateRoleException::message(),
-                ['name' => 'manager']
-            )
-        );
+        self::expectExceptionMessage(implode(' ', [
+            'The hierarchy cannot contain duplicate roles.',
+            'The role "manager" has already been defined and cannot be overwritten or merged.',
+        ]));
 
         $this->hierarchy->addRole('manager', [], []);
         $this->hierarchy->addRole('manager', [], []);
@@ -349,21 +248,12 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenRoleWithMissingPermissionThrow(): void
     {
         self::expectException(PermissionScopeNotFoundException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionScopeNotFoundException::message(),
-                ['scope' => 'product']
-            )
-        );
+        self::expectExceptionMessage('The permission scope "product" was not found.');
 
         $this->hierarchy->addRole('manager', [], ['product:view']);
     }
@@ -371,32 +261,18 @@ final class AuthorisationHierarchyTest extends TestCase
     /**
      * @test
      *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      * @covers \Umber\Authentication\Exception\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenRoleWithMissingPermissionAbilityThrow(): void
     {
         self::expectException(PermissionScopeNotFoundException::class);
-        self::expectExceptionMessage(
-            ExceptionMessage::translate(
-                PermissionScopeNotFoundException::message(),
-                ['scope' => 'product']
-            )
-        );
+        self::expectExceptionMessage('The permission scope "product" was not found.');
 
         $this->hierarchy->addRole('manager', [], ['product:view']);
     }
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCreateBasicRolesWithPermissions(): void
     {
@@ -420,11 +296,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCheckRoleByName(): void
     {
@@ -441,11 +312,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetRoleByName(): void
     {
@@ -467,11 +333,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canResolveInheritedRolePermissions(): void
     {
@@ -500,11 +361,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canResolveInheritedRolePermissionsWithOwnPermissions(): void
     {
@@ -540,11 +396,6 @@ final class AuthorisationHierarchyTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canResolveRoleArray(): void
     {

@@ -11,17 +11,15 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * {@inheritdoc}
+ * @group unit
+ * @group authentication
+ *
+ * @covers \Umber\Authentication\Token\Key\Storage\KeyStorage
  */
 final class KeyStorageTest extends TestCase
 {
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Key\Storage\KeyStorage
      */
     public function checkBasicUsage(): void
     {
@@ -40,11 +38,6 @@ final class KeyStorageTest extends TestCase
 
     /**
      * @test
-     *
-     * @group unit
-     * @group authentication
-     *
-     * @covers \Umber\Authentication\Token\Key\Storage\KeyStorage
      */
     public function withEmptyStringPassPhraseConvertNull(): void
     {

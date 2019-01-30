@@ -32,7 +32,7 @@ final class TokenExpiredException extends Exception implements
     {
         $message = 'Your credentials have expired and require re-authentication.';
 
-        return new self($message, null, $previous);
+        return new self($message, 0, $previous);
     }
 
     /**

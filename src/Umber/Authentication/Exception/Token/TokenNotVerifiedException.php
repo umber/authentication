@@ -19,6 +19,6 @@ final class TokenNotVerifiedException extends Exception
     {
         $message = 'The token provided cannot be verified.';
 
-        return new self($message, null, $previous);
+        return new self($message, 0, $previous);
     }
 }

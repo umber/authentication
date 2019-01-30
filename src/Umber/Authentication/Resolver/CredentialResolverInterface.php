@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Umber\Authentication\Resolver;
 
 use Umber\Authentication\AuthenticationMethodInterface;
+use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException;
 use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticationMethodException;
 use Umber\Authentication\Exception\Resolver\UnsupportedAuthenticationMethodException;
 use Umber\Authentication\Resolver\Credential\CredentialInterface;
@@ -18,6 +19,7 @@ interface CredentialResolverInterface
      * Attempt to resolve all user data for the authentication method provided.
      *
      * @throws CannotResolveAuthenticationMethodException When the resolve fails.
+     * @throws CannotResolveAuthenticatedUserException When the user cannot be resolved.
      * @throws UnsupportedAuthenticationMethodException When the authentication method is not supported.
      */
     public function resolve(AuthenticationMethodInterface $method): CredentialInterface;

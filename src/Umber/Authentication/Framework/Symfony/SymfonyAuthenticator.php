@@ -7,6 +7,7 @@ namespace Umber\Authentication\Framework\Symfony;
 use Umber\Authentication\Authenticator;
 use Umber\Authentication\Exception\Authorisation\MissingCredentialsException;
 use Umber\Authentication\Exception\Method\Header\MalformedAuthorisationHeaderException;
+use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException;
 use Umber\Authentication\Exception\UnauthorisedException;
 use Umber\Authentication\Framework\Modifier\AuthenticatorRoleModifierInterface;
 use Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader;
@@ -43,9 +44,7 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
     /**
      * {@inheritdoc}
      *
-     * @throws UnauthorisedException When the authorisation header is missing.
-     * @throws UnauthorisedException When the authorisation header is malformed.
-     * @throws UnauthorisedException When the credentials cannot be resolved.
+     * @throws UnauthorisedException
      */
     public function createToken(Request $request, $provider)
     {
@@ -68,6 +67,9 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws UnauthorisedException
+     * @throws CannotResolveAuthenticatedUserException
      */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $provider)
     {

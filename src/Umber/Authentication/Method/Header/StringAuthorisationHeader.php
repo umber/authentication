@@ -16,7 +16,7 @@ final class StringAuthorisationHeader implements AuthorisationHeaderInterface
     private $header;
 
     /**
-     * @throws MalformedAuthorisationHeaderException When the authorisation header is malformed.
+     * @throws MalformedAuthorisationHeaderException
      */
     public function __construct(string $string)
     {

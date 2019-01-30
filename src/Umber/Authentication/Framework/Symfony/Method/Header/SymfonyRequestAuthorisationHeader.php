@@ -24,8 +24,8 @@ final class SymfonyRequestAuthorisationHeader implements AuthorisationHeaderInte
     private $header;
 
     /**
-     * @throws MissingCredentialsException When the request is missing authorisation header.
-     * @throws MalformedAuthorisationHeaderException When the authorisation header is malformed.
+     * @throws MissingCredentialsException
+     * @throws MalformedAuthorisationHeaderException
      */
     public function __construct(Request $request)
     {

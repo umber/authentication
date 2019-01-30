@@ -36,7 +36,7 @@ final class Authenticator
     /**
      * Attempt to authenticate using the given authentication method.
      *
-     * @throws UnauthorisedException When the user cannot be resolved.
+     * @throws UnauthorisedException
      */
     public function authenticate(AuthenticationMethodInterface $method): void
     {
@@ -63,8 +63,8 @@ final class Authenticator
     /**
      * Returns the current authenticated user.
      *
-     * @throws UnauthorisedException When the user has not been authenticated.
-     * @throws CannotResolveAuthenticatedUserException When the user is not resolved with the credentials.
+     * @throws UnauthorisedException
+     * @throws CannotResolveAuthenticatedUserException
      */
     public function getUser(): UserInterface
     {

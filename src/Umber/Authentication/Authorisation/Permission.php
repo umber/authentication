@@ -20,6 +20,9 @@ final class Permission implements PermissionInterface
 
     /**
      * @param string[] $abilities
+     *
+     * @throws PermissionScopeNameInvalidException
+     * @throws PermissionAbilityNameInvalidException
      */
     public function __construct(string $scope, array $abilities)
     {

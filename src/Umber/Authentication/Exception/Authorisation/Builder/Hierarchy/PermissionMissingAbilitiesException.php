@@ -4,31 +4,23 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation\Builder\Hierarchy;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
- * {@inheritdoc}
+ * An exception thrown when a permission is missing abilities.
  */
-final class PermissionMissingAbilitiesException extends AbstractMessageRuntimeException
+final class PermissionMissingAbilitiesException extends Exception
 {
     /**
      * @return PermissionMissingAbilitiesException
      */
     public static function create(string $scope): self
     {
-        return new self([
-            'scope' => $scope,
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
+        $message = implode(' ', [
             'The hierarchy expects that all permissions come with at least one ability.',
-            'The permission scope "{{scope}}" has no abilities assigned to it so is considered useless.',
-        ];
+            sprintf('The permission scope "%s" has no abilities assigned to it so is considered useless.', $scope),
+        ]);
+
+        return new self($message);
     }
 }

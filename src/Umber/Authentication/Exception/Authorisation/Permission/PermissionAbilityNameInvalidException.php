@@ -4,32 +4,23 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation\Permission;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
- * {@inheritdoc}
+ * An exception thrown when a permission ability is invalid.
  */
-final class PermissionAbilityNameInvalidException extends AbstractMessageRuntimeException
+final class PermissionAbilityNameInvalidException extends Exception
 {
     /**
      * @return PermissionAbilityNameInvalidException
      */
     public static function create(string $scope, string $ability): self
     {
-        return new self([
-            'scope' => $scope,
-            'ability' => $ability,
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
+        $message = implode(' ', [
             'A permission ability should only contain alphabetic characters and hyphens or underscores.',
-            'The permission ability provided ("{{ability}}") is invalid for scope "{{scope}}".',
-        ];
+            sprintf('The permission ability "%s" is invalid for scope "%s".', $ability, $scope),
+        ]);
+
+        return new self($message);
     }
 }

@@ -4,33 +4,25 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation\Permission;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
- * {@inheritdoc}
+ * An exception thrown when a permission cannot be un-serialised.
  */
-final class PermissionSerialisationNameInvalidException extends AbstractMessageRuntimeException
+final class PermissionSerialisationNameInvalidException extends Exception
 {
     /**
      * @return PermissionSerialisationNameInvalidException
      */
     public static function create(string $permission): self
     {
-        return new self([
-            'permission' => $permission,
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
+        $message = implode(' ', [
             'A transportable permission name should contain its ability.',
             'This is done using the format "permission:ability".',
             'Multiple abilities are possible through multiple entries of the same name.',
-            'The permission given ("{{permission}}") is invalid.',
-        ];
+            sprintf('The permission "%s" is invalid.', $permission),
+        ]);
+
+        return new self($message);
     }
 }

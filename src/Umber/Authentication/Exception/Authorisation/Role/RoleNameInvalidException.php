@@ -4,31 +4,23 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation\Role;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
- * {@inheritdoc}
+ * An exception thrown when a role name is invalid.
  */
-final class RoleNameInvalidException extends AbstractMessageRuntimeException
+final class RoleNameInvalidException extends Exception
 {
     /**
      * @return RoleNameInvalidException
      */
     public static function create(string $role): self
     {
-        return new self([
-            'name' => $role,
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
+        $message = implode(' ', [
             'A role name should only contain alphabetic characters and hyphens or underscores.',
-            'The role name provided ("{{name}}") is invalid.',
-        ];
+            sprintf('The role name "%s" is invalid.', $role),
+        ]);
+
+        return new self($message);
     }
 }

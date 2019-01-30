@@ -4,31 +4,21 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Method\Header;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
  * An exception that is thrown when the header is not formatted correctly.
  */
-final class MalformedAuthorisationHeaderException extends AbstractMessageRuntimeException
+final class MalformedAuthorisationHeaderException extends Exception
 {
     /**
      * @return MalformedAuthorisationHeaderException
      */
     public static function create(string $string): self
     {
-        return new self([
-            'string' => $string,
-        ]);
-    }
+        $message = 'The authentication header "%s" is malformed.';
+        $message = sprintf($message, $string);
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
-            'The authentication header "{{ string }}" is malformed.',
-            'The expected representation is "TYPE CREDENTIALS", that is a type followed by a space followed by the credentials.',
-        ];
+        return new self($message);
     }
 }

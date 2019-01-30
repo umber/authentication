@@ -4,31 +4,23 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Exception\Authorisation\Builder\Hierarchy;
 
-use Umber\Common\Exception\AbstractMessageRuntimeException;
+use Exception;
 
 /**
- * {@inheritdoc}
+ * An exception thrown when a permission scope is duplicated.
  */
-final class DuplicatePermissionScopeException extends AbstractMessageRuntimeException
+final class DuplicatePermissionScopeException extends Exception
 {
     /**
      * @return DuplicatePermissionScopeException
      */
     public static function create(string $scope): self
     {
-        return new self([
-            'scope' => $scope,
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function message(): array
-    {
-        return [
+        $message = implode(' ', [
             'The hierarchy cannot contain duplicate permission scopes.',
-            'The permission scope "{{scope}}" has already been defined and cannot be overwritten or merged.',
-        ];
+            sprintf('The permission scope "%s" has already been defined and cannot be overwritten or merged.', $scope),
+        ]);
+
+        return new self($message);
     }
 }

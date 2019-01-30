@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Framework\Symfony\Bundle\DependencyInjection;
 
-use Umber\Common\Framework\Symfony\AbstractExtension;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * {@inheritdoc}
  */
-final class UmberAuthenticationExtension extends AbstractExtension
+final class UmberAuthenticationExtension extends Extension
 {
     /**
      * {@inheritdoc}
      */
-    protected function configs(): array
+    public function load(array $configs, ContainerBuilder $container)
     {
-        return [
-            'authentication',
-        ];
+        $directory = realpath(sprintf('%s/../Resources/config/services', __DIR__));
+
+        $loader = new YamlFileLoader($container, new FileLocator($directory));
+        $loader->load('authentication.yaml');
     }
 }

@@ -32,7 +32,7 @@ final class PermissionDeniedException extends Exception implements
     {
         $message = 'You require greater permissions to perform this action.';
 
-        return new self($message, null, $parent);
+        return new self($message, 0, $parent);
     }
 
     /**

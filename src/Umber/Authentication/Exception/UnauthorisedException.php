@@ -30,9 +30,14 @@ final class UnauthorisedException extends Exception implements
      */
     public static function create(?Throwable $previous = null): self
     {
+        return new self($previous);
+    }
+
+    public function __construct(?Throwable $previous = null)
+    {
         $message = 'Your credentials are invalid.';
 
-        return new self($message, 0, $previous);
+        parent::__construct($message, 0, $previous);
     }
 
     /**

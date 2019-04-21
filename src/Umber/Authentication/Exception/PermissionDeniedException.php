@@ -30,9 +30,14 @@ final class PermissionDeniedException extends Exception implements
      */
     public static function create(?Throwable $parent = null): self
     {
+        return new self($parent);
+    }
+
+    public function __construct(?Throwable $previous = null)
+    {
         $message = 'You require greater permissions to perform this action.';
 
-        return new self($message, 0, $parent);
+        parent::__construct($message, 0, $previous);
     }
 
     /**

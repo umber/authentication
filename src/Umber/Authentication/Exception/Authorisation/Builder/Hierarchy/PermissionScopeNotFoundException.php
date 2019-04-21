@@ -16,9 +16,14 @@ final class PermissionScopeNotFoundException extends Exception
      */
     public static function create(string $scope): self
     {
+        return new self($scope);
+    }
+
+    public function __construct(string $scope)
+    {
         $message = 'The permission scope "%s" was not found.';
         $message = sprintf($message, $scope);
 
-        return new self($message);
+        parent::__construct($message);
     }
 }

@@ -25,9 +25,14 @@ final class MissingCredentialsException extends Exception implements
      */
     public static function create(): self
     {
+        return new self();
+    }
+
+    public function __construct()
+    {
         $message = 'The authorisation header is missing from the request.';
 
-        return new self($message);
+        parent::__construct($message);
     }
 
     /**

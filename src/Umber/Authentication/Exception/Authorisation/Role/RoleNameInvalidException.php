@@ -16,11 +16,18 @@ final class RoleNameInvalidException extends Exception
      */
     public static function create(string $role): self
     {
+        return new self($role);
+    }
+
+    public function __construct(string $role)
+    {
         $message = implode(' ', [
             'A role name should only contain alphabetic characters and hyphens or underscores.',
-            sprintf('The role name "%s" is invalid.', $role),
+            'The role name "%s" is invalid.',
         ]);
 
-        return new self($message);
+        $message = sprintf($message, $role);
+
+        parent::__construct($message);
     }
 }

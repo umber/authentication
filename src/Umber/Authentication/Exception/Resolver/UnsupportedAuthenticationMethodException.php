@@ -16,8 +16,13 @@ final class UnsupportedAuthenticationMethodException extends Exception
      */
     public static function create(): self
     {
+        return new self();
+    }
+
+    public function __construct()
+    {
         $message = 'The authentication method is not supported.';
 
-        return new self($message);
+        parent::__construct($message);
     }
 }

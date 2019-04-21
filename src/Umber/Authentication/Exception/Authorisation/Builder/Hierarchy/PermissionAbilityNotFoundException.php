@@ -16,9 +16,14 @@ final class PermissionAbilityNotFoundException extends Exception
      */
     public static function create(string $scope, string $ability): self
     {
+        return new self($scope, $ability);
+    }
+
+    public function __construct(string $scope, string $ability)
+    {
         $message = 'The permission ability "%s" was not found against the scope "%s".';
         $message = sprintf($message, $ability, $scope);
 
-        return new self($message);
+        parent::__construct($message);
     }
 }

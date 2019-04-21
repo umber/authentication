@@ -1,0 +1,13 @@
+version: '3.0'
+services:
+
+  php-cli:
+    container_name: umber-authentication-php
+    image: 'musurp/php-dev:7.3.4-cli'
+    working_dir: '/srv'
+    volumes:
+      - './:/srv'
+    environment:
+      PHP_XDEBUG_IDEKEY: UMBER
+      PHP_XDEBUG_REMOTE_AUTO_START: 1
+      PHP_XDEBUG_REMOTE_CONNECT_BACK: 1

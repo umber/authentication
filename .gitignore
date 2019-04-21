@@ -3,3 +3,9 @@
 /composer.lock
 
 /phpunit.xml
+/phpcs.xml
+/phpcs.cache
+
+/build/coverage
+
+/Zeusfile

@@ -16,9 +16,14 @@ final class TokenMissingDataKeyException extends Exception
      */
     public static function create(string $key): self
     {
-        $message = 'The authentication token does not have data "%s".';
+        return new self($key);
+    }
+
+    public function __construct(string $key)
+    {
+        $message = 'The authentication token does not have data key "%s".';
         $message = sprintf($message, $key);
 
-        return new self($message);
+        parent::__construct($message);
     }
 }

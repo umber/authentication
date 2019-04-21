@@ -11,6 +11,7 @@ use Umber\Authentication\Token\Key\KeyLoaderInterface;
  */
 final class FileKeyLoader implements KeyLoaderInterface
 {
+    /** @var string */
     private $path;
 
     public function __construct(string $path)
@@ -23,6 +24,9 @@ final class FileKeyLoader implements KeyLoaderInterface
      */
     public function load(): string
     {
-        return file_get_contents($this->path);
+        /** @var string $content */
+        $content = file_get_contents($this->path);
+
+        return $content;
     }
 }

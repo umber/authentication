@@ -8,21 +8,22 @@ use Umber\Authentication\Exception\PermissionDeniedException;
 use Umber\Authentication\Security\Entity\AuthorisationCheckerInterface;
 use Umber\Authentication\Storage\CredentialStorageInterface;
 
-use Umber\Database\EntityInterface;
-
 /**
  * {@inheritdoc}
  */
 final class Security implements SecurityInterface
 {
-    private $authentication;
+    /** @var CredentialStorageInterface */
+    private $credentials;
+
+    /** @var AuthorisationCheckerInterface */
     private $checker;
 
     public function __construct(
-        CredentialStorageInterface $authentication,
+        CredentialStorageInterface $credentials,
         AuthorisationCheckerInterface $checker
     ) {
-        $this->authentication = $authentication;
+        $this->credentials = $credentials;
         $this->checker = $checker;
     }
 
@@ -31,7 +32,7 @@ final class Security implements SecurityInterface
      */
     public function hasPermission(string $scope, string $ability): void
     {
-        $authorisation = $this->authentication->getAuthorisation();
+        $authorisation = $this->credentials->getAuthorisation();
         $state = $authorisation->hasPermission($scope, $ability);
 
         if ($state === true) {
@@ -44,9 +45,9 @@ final class Security implements SecurityInterface
     /**
      * {@inheritdoc}
      */
-    public function isGranted(EntityInterface $entity, string ...$abilities): void
+    public function isGranted($object, string ...$abilities): void
     {
-        $state = $this->checker->check($entity, $abilities);
+        $state = $this->checker->check($object, $abilities);
 
         if ($state === true) {
             return;

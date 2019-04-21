@@ -13,7 +13,10 @@ use Umber\Authentication\Method\AuthorisationHeaderInterface;
  */
 final class AuthorisationHeader implements AuthorisationHeaderInterface
 {
+    /** @var string */
     private $type;
+
+    /** @var string */
     private $credentials;
 
     public function __construct(string $type, string $credentials)

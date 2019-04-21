@@ -7,11 +7,10 @@ namespace Umber\Authentication\Tests\Unit\Token;
 use Umber\Authentication\Exception\Token\TokenMissingDataKeyException;
 use Umber\Authentication\Token\Token;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-
 use Lcobucci\JWT\Claim;
 use Lcobucci\JWT\Token as ExternalToken;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group unit
@@ -103,7 +102,7 @@ final class TokenTest extends TestCase
         $token = new Token($external);
 
         self::expectException(TokenMissingDataKeyException::class);
-        self::expectExceptionMessage('The authentication token does not have data "test".');
+        self::expectExceptionMessage('The authentication token does not have data key "test".');
 
         $token->get('test');
     }

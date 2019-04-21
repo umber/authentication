@@ -29,6 +29,7 @@ final class PermissionFactoryTest extends TestCase
         self::assertEquals('product', $permission->getScope());
         self::assertEquals(['view'], $permission->getAbilities());
     }
+
     /**
      * @test
      */
@@ -40,6 +41,7 @@ final class PermissionFactoryTest extends TestCase
         self::assertEquals('product', $permission->getScope());
         self::assertEquals(['view'], $permission->getAbilities());
     }
+
     /**
      * @test
      *

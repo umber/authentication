@@ -16,8 +16,13 @@ final class CannotResolveAuthenticatedUserException extends Exception
      */
     public static function create(): self
     {
+        return new self();
+    }
+
+    public function __construct()
+    {
         $message = 'The authentication resolver did not provide the user.';
 
-        return new self($message);
+        parent::__construct($message);
     }
 }

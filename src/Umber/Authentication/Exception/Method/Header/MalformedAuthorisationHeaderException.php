@@ -14,11 +14,16 @@ final class MalformedAuthorisationHeaderException extends Exception
     /**
      * @return MalformedAuthorisationHeaderException
      */
-    public static function create(string $string): self
+    public static function create(string $header): self
+    {
+        return new self($header);
+    }
+
+    public function __construct(string $header)
     {
         $message = 'The authentication header "%s" is malformed.';
-        $message = sprintf($message, $string);
+        $message = sprintf($message, $header);
 
-        return new self($message);
+        parent::__construct($message);
     }
 }

@@ -16,13 +16,20 @@ final class PermissionSerialisationNameInvalidException extends Exception
      */
     public static function create(string $permission): self
     {
+        return new self($permission);
+    }
+
+    public function __construct(string $permission)
+    {
         $message = implode(' ', [
             'A transportable permission name should contain its ability.',
             'This is done using the format "permission:ability".',
             'Multiple abilities are possible through multiple entries of the same name.',
-            sprintf('The permission "%s" is invalid.', $permission),
+            'The permission "%s" is invalid.',
         ]);
 
-        return new self($message);
+        $message = sprintf($message, $permission);
+
+        parent::__construct($message);
     }
 }

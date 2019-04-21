@@ -16,9 +16,14 @@ final class RoleNotFoundException extends Exception
      */
     public static function create(string $role): self
     {
+        return new self($role);
+    }
+
+    public function __construct(string $role)
+    {
         $message = 'The role "%s" was not found.';
         $message = sprintf($message, $role);
 
-        return new self($message);
+        parent::__construct($message);
     }
 }

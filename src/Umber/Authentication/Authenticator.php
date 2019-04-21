@@ -31,18 +31,23 @@ use Umber\Authentication\Storage\CredentialStorageInterface;
  */
 final class Authenticator
 {
-    private $authorisationHierarchyResolver;
-    private $credentialResolver;
+    /** @var CredentialStorageInterface */
     private $credentialStorage;
 
+    /** @var CredentialResolverInterface */
+    private $credentialResolver;
+
+    /** @var AuthorisationHierarchyResolverInterface */
+    private $authorisationHierarchyResolver;
+
     public function __construct(
-        AuthorisationHierarchyResolverInterface $authorisationHierarchyResolver,
+        CredentialStorageInterface $credentialStorage,
         CredentialResolverInterface $credentialResolver,
-        CredentialStorageInterface $credentialStorage
+        AuthorisationHierarchyResolverInterface $authorisationHierarchyResolver
     ) {
-        $this->authorisationHierarchyResolver = $authorisationHierarchyResolver;
-        $this->credentialResolver = $credentialResolver;
         $this->credentialStorage = $credentialStorage;
+        $this->credentialResolver = $credentialResolver;
+        $this->authorisationHierarchyResolver = $authorisationHierarchyResolver;
     }
 
     /**

@@ -1,6 +1,6 @@
 {
   "name": "umber/authentication",
-  "description": "A simple authentication module.",
+  "description": "A series of Authentication abstractions.",
   "type": "library",
   "license": "MIT",
 
@@ -11,28 +11,41 @@
   "require": {
     "php": ">=7.1",
 
-    "umber/common": "^1.2",
-    "umber/database": "^1.0",
-    "umber/http": "^1.2",
+    "umber/date": "^1.0",
+    "umber/http": "^2.0",
 
     "lcobucci/jwt": "~3.2"
   },
 
   "require-dev": {
     "phpunit/phpunit": "^7.0",
-    "symfony/security": "~3.4 | ~4.0"
+
+    "symfony/config": "^4.0",
+    "symfony/dependency-injection": "^4.0",
+    "symfony/security": "^4.0",
+
+    "umber/coding-standard": "4.0.x-dev",
+    "mmoreram/php-formatter": "^1.3.2",
+
+    "phpstan/phpstan": "^0.10",
+    "phpstan/phpstan-strict-rules": "^0.10"
   },
 
   "autoload": {
     "psr-4": {
-      "Umber\\Authentication\\": "src/Umber/Authentication",
+      "Umber\\Authentication\\": "src/Umber/Authentication"
+    }
+  },
+
+  "autoload-dev": {
+    "psr-4": {
       "Umber\\Authentication\\Tests\\": "tests/Umber/Authentication/Tests"
     }
   },
 
   "extra": {
     "branch-alias": {
-      "dev-develop": "1.0-dev"
+      "dev-develop": "2.1-dev"
     }
   },
 

@@ -17,8 +17,9 @@ final class UmberAuthenticationExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
+        /** @var string $directory */
         $directory = realpath(sprintf('%s/../Resources/config/services', __DIR__));
 
         $loader = new YamlFileLoader($container, new FileLocator($directory));

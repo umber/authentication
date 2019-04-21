@@ -51,9 +51,9 @@ final class SymfonyAuthenticatorTest extends TestCase
         $credentialStorage = $this->createMock(CredentialStorageInterface::class);
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         $modifier = new NullAuthenticatorRoleModifier();
@@ -86,9 +86,9 @@ final class SymfonyAuthenticatorTest extends TestCase
         $credentialStorage = $this->createMock(CredentialStorageInterface::class);
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         $modifier = new NullAuthenticatorRoleModifier();
@@ -135,9 +135,9 @@ final class SymfonyAuthenticatorTest extends TestCase
             ->method('authorise');
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         $modifier = new NullAuthenticatorRoleModifier();
@@ -177,9 +177,9 @@ final class SymfonyAuthenticatorTest extends TestCase
             ->method('authorise');
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         $modifier = new NullAuthenticatorRoleModifier();
@@ -218,9 +218,9 @@ final class SymfonyAuthenticatorTest extends TestCase
             ->method('authorise');
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         $modifier = new NullAuthenticatorRoleModifier();
@@ -260,9 +260,9 @@ final class SymfonyAuthenticatorTest extends TestCase
             ->willReturn($user);
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         $modifier = new NullAuthenticatorRoleModifier();
@@ -310,9 +310,9 @@ final class SymfonyAuthenticatorTest extends TestCase
             ->willReturn($user);
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         /** @var AuthenticatorRoleModifierInterface|MockObject $modifier */

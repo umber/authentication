@@ -16,11 +16,18 @@ final class PermissionMissingAbilitiesException extends Exception
      */
     public static function create(string $scope): self
     {
+        return new self($scope);
+    }
+
+    public function __construct(string $scope)
+    {
         $message = implode(' ', [
             'The hierarchy expects that all permissions come with at least one ability.',
-            sprintf('The permission scope "%s" has no abilities assigned to it so is considered useless.', $scope),
+            'The permission scope "%s" has no abilities assigned to it so is considered useless.',
         ]);
 
-        return new self($message);
+        $message = sprintf($message, $scope);
+
+        parent::__construct($message);
     }
 }

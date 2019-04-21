@@ -16,11 +16,18 @@ final class PermissionAbilityNameInvalidException extends Exception
      */
     public static function create(string $scope, string $ability): self
     {
+        return new self($scope, $ability);
+    }
+
+    public function __construct(string $scope, string $ability)
+    {
         $message = implode(' ', [
             'A permission ability should only contain alphabetic characters and hyphens or underscores.',
-            sprintf('The permission ability "%s" is invalid for scope "%s".', $ability, $scope),
+            'The permission ability "%s" is invalid for scope "%s".',
         ]);
 
-        return new self($message);
+        $message = sprintf($message, $ability, $scope);
+
+        parent::__construct($message);
     }
 }

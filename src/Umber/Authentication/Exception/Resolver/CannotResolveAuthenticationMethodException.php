@@ -16,8 +16,13 @@ final class CannotResolveAuthenticationMethodException extends Exception
      */
     public static function create(): self
     {
+        return new self();
+    }
+
+    public function __construct()
+    {
         $message = 'The authentication method provided did not resolve.';
 
-        return new self($message);
+        parent::__construct($message);
     }
 }

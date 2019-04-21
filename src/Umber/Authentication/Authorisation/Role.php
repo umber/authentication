@@ -13,7 +13,10 @@ final class Role implements RoleInterface
 {
     private const NAME_REGEX = '/^([A-Z]+[A-~\-\_]?[A-Z]+)+$/';
 
+    /** @var string */
     private $name;
+
+    /** @var PermissionInterface[] */
     private $permissions;
 
     /**

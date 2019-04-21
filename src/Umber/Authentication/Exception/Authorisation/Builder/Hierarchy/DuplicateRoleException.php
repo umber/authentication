@@ -14,13 +14,20 @@ final class DuplicateRoleException extends Exception
     /**
      * @return DuplicateRoleException
      */
-    public static function create(string $name): self
+    public static function create(string $role): self
+    {
+        return new self($role);
+    }
+
+    public function __construct(string $role)
     {
         $message = implode(' ', [
             'The hierarchy cannot contain duplicate roles.',
-            sprintf('The role "%s" has already been defined and cannot be overwritten or merged.', $name),
+            'The role "%s" has already been defined and cannot be overwritten or merged.',
         ]);
 
-        return new self($message);
+        $message = sprintf($message, $role);
+
+        parent::__construct($message);
     }
 }

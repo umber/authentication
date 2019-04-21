@@ -1,0 +1,30 @@
+dist: trusty
+sudo: false
+
+git: { depth: 1 }
+branches: { only: [master, develop] }
+
+language: php
+php:
+  - '7.2'
+  - '7.3'
+  - '7.4snapshot'
+
+matrix:
+  allow_failures:
+    - php: '7.4snapshot'
+
+before_scripts:
+  - composer self-update
+
+install:
+  - travis_retry composer update --prefer-dist
+
+script:
+  - make code.sniff.report
+  - make code.phpstan
+  - vendor/bin/phpunit -v
+
+cache:
+  directories:
+    - $HOME/.composer/cache

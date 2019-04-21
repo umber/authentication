@@ -16,11 +16,18 @@ final class DuplicatePermissionScopeException extends Exception
      */
     public static function create(string $scope): self
     {
+        return new self($scope);
+    }
+
+    public function __construct(string $scope)
+    {
         $message = implode(' ', [
             'The hierarchy cannot contain duplicate permission scopes.',
-            sprintf('The permission scope "%s" has already been defined and cannot be overwritten or merged.', $scope),
+            'The permission scope "%s" has already been defined and cannot be overwritten or merged.',
         ]);
 
-        return new self($message);
+        $message = sprintf($message, $scope);
+
+        parent::__construct($message);
     }
 }

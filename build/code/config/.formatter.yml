@@ -1,0 +1,12 @@
+use-sort:
+  group:
+    - Umber\Authentication
+    - Umber
+    - Symfony
+    - _main
+  group-type: each
+  group-skip-empty: false
+  sort-type: alph
+  sort-direction: asc
+
+header: |

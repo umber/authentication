@@ -14,6 +14,7 @@ use Lcobucci\JWT\Token as ExternalToken;
  */
 final class Token implements TokenInterface
 {
+    /** @var ExternalToken */
     private $token;
 
     /** @var string[] */

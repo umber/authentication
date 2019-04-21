@@ -43,9 +43,9 @@ final class AuthenticatorTest extends TestCase
             ->willReturn(false);
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         self::assertFalse($authenticator->isAuthenticated());
@@ -72,9 +72,9 @@ final class AuthenticatorTest extends TestCase
             ->willReturn($user);
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         self::assertSame($user, $authenticator->getUser());
@@ -115,9 +115,9 @@ final class AuthenticatorTest extends TestCase
             ->method('authorise');
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         $authenticator->authenticate(new AuthorisationHeader('bearer', 'some-value'));
@@ -161,9 +161,9 @@ final class AuthenticatorTest extends TestCase
             ->method('authorise');
 
         $authenticator = new Authenticator(
-            $authorisationHierarchyResolver,
+            $credentialStorage,
             $credentialResolver,
-            $credentialStorage
+            $authorisationHierarchyResolver
         );
 
         $authenticator->authenticate(new AuthorisationHeader('bearer', 'some-value'));

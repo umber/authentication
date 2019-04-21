@@ -26,10 +26,16 @@ use Umber\Authentication\Utility\NameNormaliser;
  */
 final class AuthorisationHierarchy
 {
+    /** @var RoleFactoryInterface */
     private $roleFactory;
+
+    /** @var PermissionFactoryInterface */
     private $permissionFactory;
 
+    /** @var RoleInterface[] */
     private $roles = [];
+
+    /** @var PermissionInterface[] */
     private $permissions = [];
 
     public function __construct(

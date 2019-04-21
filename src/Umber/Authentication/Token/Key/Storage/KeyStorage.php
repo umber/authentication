@@ -11,9 +11,14 @@ use Umber\Authentication\Token\Key\KeyLoaderInterface;
  */
 final class KeyStorage
 {
+    /** @var KeyLoaderInterface */
     private $public;
+
+    /** @var KeyLoaderInterface */
     private $private;
-    private $passPhrase;
+
+    /** @var string|null */
+    private $passPhrase = null;
 
     public function __construct(KeyLoaderInterface $public, KeyLoaderInterface $private, ?string $passPhrase)
     {

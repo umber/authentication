@@ -15,7 +15,10 @@ final class Permission implements PermissionInterface
 {
     private const NAME_REGEX = '/^([a-z]+[a-z\-\_]?[a-z]+)+$/';
 
+    /** @var string */
     private $scope;
+
+    /** @var string[] */
     private $abilities;
 
     /**
@@ -69,7 +72,7 @@ final class Permission implements PermissionInterface
     {
         $ability = NameNormaliser::normalisePermissionAbility($ability);
 
-        if (in_array(self::WILDCARD, $this->abilities)) {
+        if (in_array(self::WILDCARD, $this->abilities, true)) {
             return true;
         }
 

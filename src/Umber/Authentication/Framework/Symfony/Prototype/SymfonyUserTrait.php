@@ -21,7 +21,7 @@ trait SymfonyUserTrait
      *
      * @see SymfonyUserInterface::getUsername()
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->getEmail();
     }
@@ -31,7 +31,7 @@ trait SymfonyUserTrait
      *
      * @see SymfonyUserInterface::getPassword()
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return 'password';
     }
@@ -41,7 +41,7 @@ trait SymfonyUserTrait
      *
      * @see SymfonyUserInterface::getSalt()
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return null;
     }
@@ -51,7 +51,7 @@ trait SymfonyUserTrait
      *
      * @see SymfonyUserInterface::eraseCredentials()
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 
@@ -59,8 +59,10 @@ trait SymfonyUserTrait
      * {@inheritdoc}
      *
      * @see CommonUserInterface::getAuthorisationRoles()
+     *
+     * @return string[]
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->getAuthorisationRoles();
     }

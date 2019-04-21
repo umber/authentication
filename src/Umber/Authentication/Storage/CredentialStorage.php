@@ -32,11 +32,7 @@ final class CredentialStorage implements CredentialStorageInterface
      */
     public function getCredentials(): CredentialInterface
     {
-        if ($this->isAuthenticated() === false) {
-            throw UnauthorisedException::create();
-        }
-
-        return $this->authorisation->getCredentials();
+        return $this->getAuthorisation()->getCredentials();
     }
 
     /**
@@ -44,11 +40,13 @@ final class CredentialStorage implements CredentialStorageInterface
      */
     public function getAuthorisation(): CredentialAwareAuthorisationInterface
     {
-        if ($this->isAuthenticated() === false) {
+        $authorisation = $this->authorisation;
+
+        if ($authorisation === null) {
             throw UnauthorisedException::create();
         }
 
-        return $this->authorisation;
+        return $authorisation;
     }
 
     /**
@@ -56,11 +54,7 @@ final class CredentialStorage implements CredentialStorageInterface
      */
     public function getUser(): UserInterface
     {
-        if ($this->isAuthenticated() === false) {
-            throw UnauthorisedException::create();
-        }
-
-        $credentials = $this->authorisation->getCredentials();
+        $credentials = $this->getAuthorisation()->getCredentials();
 
         if ($credentials instanceof UserCredentialInterface) {
             return $credentials->getUser();

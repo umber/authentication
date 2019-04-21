@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Security\Entity;
 
-use Umber\Database\EntityInterface;
-
 interface AuthorisationCheckerInterface
 {
     /**
      * Check the authorisation against an entity.
      *
+     * @param mixed $object
      * @param string[] $abilities
      */
-    public function check(EntityInterface $entity, array $abilities): bool;
+    public function check($object, array $abilities): bool;
 }

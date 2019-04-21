@@ -33,7 +33,10 @@ use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterfa
  */
 final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
 {
+    /** @var Authenticator */
     private $authenticator;
+
+    /** @var AuthenticatorRoleModifierInterface */
     private $modifier;
 
     public function __construct(Authenticator $authenticator, AuthenticatorRoleModifierInterface $modifier)
@@ -43,16 +46,16 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $provider
      */
-    public function supportsToken(TokenInterface $token, $provider)
+    public function supportsToken(TokenInterface $token, $provider): bool
     {
         return ($token instanceof PreAuthenticatedToken)
             && ($token->getProviderKey() === $provider);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $provider
      *
      * @throws UnauthorisedException
      *
@@ -68,7 +71,7 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
      * @throws PermissionAbilityNameInvalidException
      * @throws PermissionMissingAbilitiesException
      */
-    public function createToken(Request $request, $provider)
+    public function createToken(Request $request, $provider): PreAuthenticatedToken
     {
         try {
             $header = new SymfonyRequestAuthorisationHeader($request);
@@ -88,13 +91,16 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $provider
      *
      * @throws UnauthorisedException
      * @throws CannotResolveAuthenticatedUserException
      */
-    public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $provider)
-    {
+    public function authenticateToken(
+        TokenInterface $token,
+        UserProviderInterface $userProvider,
+        $provider
+    ): PreAuthenticatedToken {
         $credentials = $token->getCredentials();
 
         $user = $this->authenticator->getUser();

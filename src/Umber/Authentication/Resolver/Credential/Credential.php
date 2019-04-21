@@ -11,11 +11,12 @@ use Umber\Authentication\Prototype\Authorisation\AuthorisationAwareInterface;
  */
 final class Credential implements CredentialInterface
 {
-    private $aware;
+    /** @var AuthorisationAwareInterface */
+    private $authorisation;
 
-    public function __construct(AuthorisationAwareInterface $aware)
+    public function __construct(AuthorisationAwareInterface $authorisation)
     {
-        $this->aware = $aware;
+        $this->authorisation = $authorisation;
     }
 
     /**
@@ -23,7 +24,7 @@ final class Credential implements CredentialInterface
      */
     public function getAuthorisationRoles(): array
     {
-        return $this->aware->getAuthorisationRoles();
+        return $this->authorisation->getAuthorisationRoles();
     }
 
     /**
@@ -31,6 +32,6 @@ final class Credential implements CredentialInterface
      */
     public function getAuthorisationPermissions(): array
     {
-        return $this->aware->getAuthorisationPermissions();
+        return $this->authorisation->getAuthorisationPermissions();
     }
 }

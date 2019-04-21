@@ -23,8 +23,13 @@ use OutOfBoundsException;
  */
 final class TokenProvider implements TokenProviderInterface
 {
+    /** @var KeyStorageResolverInterface */
     private $keyStorageResolver;
+
+    /** @var DateTimeFactoryInterface */
     private $dateTimeFactory;
+
+    /** @var int */
     private $ttl;
 
     public function __construct(
@@ -87,7 +92,7 @@ final class TokenProvider implements TokenProviderInterface
             $storage->getPassPhrase()
         );
 
-        $verified = $parsed->verify(new Sha256(), $key);
+        $verified = $parsed->verify(new Sha256(), $key->getContent());
 
         if ($verified === false) {
             throw TokenNotVerifiedException::create();

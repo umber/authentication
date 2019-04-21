@@ -12,7 +12,10 @@ use Umber\Authentication\Resolver\Credential\Credential;
  */
 final class UserCredential implements UserCredentialInterface
 {
+    /** @var UserInterface */
     private $user;
+
+    /** @var Credential */
     private $credential;
 
     public function __construct(UserInterface $user)

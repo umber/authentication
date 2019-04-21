@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Security\Entity;
 
-use Umber\Database\EntityInterface;
-
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -13,6 +11,7 @@ use Symfony\Component\Security\Core\Security;
  */
 final class SymfonyVoterAuthorisationChecker implements AuthorisationCheckerInterface
 {
+    /** @var Security */
     private $security;
 
     public function __construct(Security $security)
@@ -23,9 +22,9 @@ final class SymfonyVoterAuthorisationChecker implements AuthorisationCheckerInte
     /**
      * {@inheritdoc}
      */
-    public function check(EntityInterface $entity, array $abilities): bool
+    public function check($object, array $abilities): bool
     {
-        $granted = $this->security->isGranted($abilities, $entity);
+        $granted = $this->security->isGranted($abilities, $object);
 
         return $granted;
     }

@@ -15,8 +15,8 @@ Instead documentation should be made available on how to implement your own user
 * Removed `Umber\Authentication\Resolver\Credential\UserCrednetial`
 * Removed `Umber\Authentication\Storage\CredentialStorageInterface::getUser()`, you can implement this yourself by making the `CredentialInterface` user aware.
 * Removed `Umber\Authentication\Framework\Modifier\AuthenticatorRoleModifierInterface` as it's a bespoke use case and roles should be modified before being given to the credential.
-
-* Moved `Umber\Authentication\Prototype\Authorisation\AuthorisationAwareInterface` to `Umber\Authentication\Authorisation\AuthorisationAwareInterface`
+* Moved/Renamed `Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException` to`Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedCredentialException`
+* Moved/Renamed `Umber\Authentication\Prototype\Authorisation\AuthorisationAwareInterface` to `Umber\Authentication\Authorisation\AuthorisationAwareInterface`
 
 
 ## [2.0.0] - 2019-04-21

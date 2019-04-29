@@ -16,7 +16,7 @@ use Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNam
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException;
 use Umber\Authentication\Exception\Authorisation\Role\RoleNameInvalidException;
-use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException;
+use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedCredentialException;
 use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticationMethodException;
 use Umber\Authentication\Exception\Resolver\UnsupportedAuthenticationMethodException;
 use Umber\Authentication\Exception\Token\TokenExpiredException;
@@ -76,7 +76,7 @@ final class Authenticator
             $credentials = $this->credentialResolver->resolve($method);
         } catch (CannotResolveAuthenticationMethodException $exception) {
             throw UnauthorisedException::create($exception);
-        } catch (CannotResolveAuthenticatedUserException $exception) {
+        } catch (CannotResolveAuthenticatedCredentialException $exception) {
             throw UnauthorisedException::create($exception);
         } catch (UnsupportedAuthenticationMethodException $exception) {
             throw UnauthorisedException::create($exception);

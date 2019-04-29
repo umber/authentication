@@ -7,12 +7,12 @@ namespace Umber\Authentication\Exception\Resolver;
 use Exception;
 
 /**
- * An exception thrown when the user is not resolved with the credentials.
+ * An exception thrown when the resolve cannot provide credentials.
  */
-final class CannotResolveAuthenticatedUserException extends Exception
+final class CannotResolveAuthenticatedCredentialException extends Exception
 {
     /**
-     * @return CannotResolveAuthenticatedUserException
+     * @return CannotResolveAuthenticatedCredentialException
      */
     public static function create(): self
     {
@@ -21,7 +21,7 @@ final class CannotResolveAuthenticatedUserException extends Exception
 
     public function __construct()
     {
-        $message = 'The authentication resolver did not provide the user.';
+        $message = 'The authentication resolver did not provide credentials.';
 
         parent::__construct($message);
     }

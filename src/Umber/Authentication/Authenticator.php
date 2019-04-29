@@ -22,7 +22,6 @@ use Umber\Authentication\Exception\Resolver\UnsupportedAuthenticationMethodExcep
 use Umber\Authentication\Exception\Token\TokenExpiredException;
 use Umber\Authentication\Exception\Token\TokenNotVerifiedException;
 use Umber\Authentication\Exception\UnauthorisedException;
-use Umber\Authentication\Prototype\UserInterface;
 use Umber\Authentication\Resolver\CredentialResolverInterface;
 use Umber\Authentication\Storage\CredentialStorageInterface;
 
@@ -94,21 +93,10 @@ final class Authenticator
     }
 
     /**
-     * Returns the current authenticated user.
-     *
-     * @throws UnauthorisedException
-     * @throws CannotResolveAuthenticatedUserException
+     * Return the authenticator's credential storage.
      */
-    public function getUser(): UserInterface
+    public function getCredentialStorage(): CredentialStorageInterface
     {
-        return $this->credentialStorage->getUser();
-    }
-
-    /**
-     * Check if a user has been authenticated.
-     */
-    public function isAuthenticated(): bool
-    {
-        return $this->credentialStorage->isAuthenticated();
+        return $this->credentialStorage;
     }
 }

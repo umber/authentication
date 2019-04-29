@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Umber\Authentication\Prototype\Authorisation;
+namespace Umber\Authentication\Authorisation;
 
 /**
  * An interface with core requirements for authentication.

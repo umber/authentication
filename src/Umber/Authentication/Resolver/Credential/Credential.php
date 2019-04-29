@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Authentication\Resolver\Credential;
 
-use Umber\Authentication\Prototype\Authorisation\AuthorisationAwareInterface;
+use Umber\Authentication\Authorisation\AuthorisationAwareInterface;
 
 /**
  * {@inheritdoc}

@@ -7,9 +7,7 @@ namespace Umber\Authentication\Tests\Unit;
 use Umber\Authentication\Authenticator;
 use Umber\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
 use Umber\Authentication\Method\Header\AuthorisationHeader;
-use Umber\Authentication\Prototype\UserInterface;
 use Umber\Authentication\Resolver\Credential\CredentialInterface;
-use Umber\Authentication\Resolver\Credential\User\UserCredentialInterface;
 use Umber\Authentication\Resolver\CredentialResolverInterface;
 use Umber\Authentication\Storage\CredentialStorageInterface;
 use Umber\Authentication\Tests\Fixture\AuthorisationHierarchyFixture;
@@ -48,36 +46,7 @@ final class AuthenticatorTest extends TestCase
             $authorisationHierarchyResolver
         );
 
-        self::assertFalse($authenticator->isAuthenticated());
-    }
-
-    /**
-     * @test
-     */
-    public function withStorageAuthenticatedGetUser(): void
-    {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-
-        /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
-        $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
-
-        /** @var CredentialResolverInterface|MockObject $credentialResolver */
-        $credentialResolver = $this->createMock(CredentialResolverInterface::class);
-
-        /** @var CredentialStorageInterface|MockObject $credentialStorage */
-        $credentialStorage = $this->createMock(CredentialStorageInterface::class);
-        $credentialStorage->expects(self::once())
-            ->method('getUser')
-            ->willReturn($user);
-
-        $authenticator = new Authenticator(
-            $credentialStorage,
-            $credentialResolver,
-            $authorisationHierarchyResolver
-        );
-
-        self::assertSame($user, $authenticator->getUser());
+        self::assertFalse($authenticator->getCredentialStorage()->isAuthenticated());
     }
 
     /**
@@ -136,11 +105,8 @@ final class AuthenticatorTest extends TestCase
                 AuthorisationHierarchyFixture::create()
             );
 
-        /** @var UserCredentialInterface|MockObject $credentials */
-        $credentials = $this->createMock(UserCredentialInterface::class);
-        $credentials->expects(self::never())
-            ->method('getUser');
-
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
         $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([]);

@@ -16,13 +16,12 @@ use Umber\Authentication\Exception\Authorisation\Permission\PermissionAbilityNam
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameInvalidException;
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException;
 use Umber\Authentication\Exception\Authorisation\Role\RoleNameInvalidException;
-use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException;
+use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedCredentialException;
 use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticationMethodException;
 use Umber\Authentication\Exception\Resolver\UnsupportedAuthenticationMethodException;
 use Umber\Authentication\Exception\Token\TokenExpiredException;
 use Umber\Authentication\Exception\Token\TokenNotVerifiedException;
 use Umber\Authentication\Exception\UnauthorisedException;
-use Umber\Authentication\Prototype\UserInterface;
 use Umber\Authentication\Resolver\CredentialResolverInterface;
 use Umber\Authentication\Storage\CredentialStorageInterface;
 
@@ -77,7 +76,7 @@ final class Authenticator
             $credentials = $this->credentialResolver->resolve($method);
         } catch (CannotResolveAuthenticationMethodException $exception) {
             throw UnauthorisedException::create($exception);
-        } catch (CannotResolveAuthenticatedUserException $exception) {
+        } catch (CannotResolveAuthenticatedCredentialException $exception) {
             throw UnauthorisedException::create($exception);
         } catch (UnsupportedAuthenticationMethodException $exception) {
             throw UnauthorisedException::create($exception);
@@ -94,21 +93,10 @@ final class Authenticator
     }
 
     /**
-     * Returns the current authenticated user.
-     *
-     * @throws UnauthorisedException
-     * @throws CannotResolveAuthenticatedUserException
+     * Return the authenticator's credential storage.
      */
-    public function getUser(): UserInterface
+    public function getCredentialStorage(): CredentialStorageInterface
     {
-        return $this->credentialStorage->getUser();
-    }
-
-    /**
-     * Check if a user has been authenticated.
-     */
-    public function isAuthenticated(): bool
-    {
-        return $this->credentialStorage->isAuthenticated();
+        return $this->credentialStorage;
     }
 }

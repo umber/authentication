@@ -17,9 +17,7 @@ use Umber\Authentication\Exception\Authorisation\Permission\PermissionScopeNameI
 use Umber\Authentication\Exception\Authorisation\Permission\PermissionSerialisationNameInvalidException;
 use Umber\Authentication\Exception\Authorisation\Role\RoleNameInvalidException;
 use Umber\Authentication\Exception\Method\Header\MalformedAuthorisationHeaderException;
-use Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException;
 use Umber\Authentication\Exception\UnauthorisedException;
-use Umber\Authentication\Framework\Modifier\AuthenticatorRoleModifierInterface;
 use Umber\Authentication\Framework\Symfony\Method\Header\SymfonyRequestAuthorisationHeader;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -36,16 +34,14 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
     /** @var Authenticator */
     private $authenticator;
 
-    /** @var AuthenticatorRoleModifierInterface */
-    private $modifier;
-
-    public function __construct(Authenticator $authenticator, AuthenticatorRoleModifierInterface $modifier)
+    public function __construct(Authenticator $authenticator)
     {
         $this->authenticator = $authenticator;
-        $this->modifier = $modifier;
     }
 
     /**
+     * Check the supported providers.
+     *
      * @param string $provider
      */
     public function supportsToken(TokenInterface $token, $provider): bool
@@ -55,6 +51,8 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
     }
 
     /**
+     * Create a token for the framework.
+     *
      * @param string $provider
      *
      * @throws UnauthorisedException
@@ -91,23 +89,24 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
     }
 
     /**
+     * Authenticate the token with the framework.
+     *
      * @param string $provider
      *
      * @throws UnauthorisedException
-     * @throws CannotResolveAuthenticatedUserException
      */
     public function authenticateToken(
         TokenInterface $token,
         UserProviderInterface $userProvider,
         $provider
     ): PreAuthenticatedToken {
-        $credentials = $token->getCredentials();
+        $credentials = $this->authenticator->getCredentialStorage()->getCredentials();
 
-        $user = $this->authenticator->getUser();
-
-        $roles = $user->getAuthorisationRoles();
-        $roles = $this->modifier->modify($roles);
-
-        return new PreAuthenticatedToken($user, $credentials, $provider, $roles);
+        return new PreAuthenticatedToken(
+            $token->getUser(),
+            $token->getCredentials(),
+            $provider,
+            $credentials->getAuthorisationRoles()
+        );
     }
 }

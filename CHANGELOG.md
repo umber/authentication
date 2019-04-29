@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+The package had a concept of `UserInterface` which was too restrictive and narrows the scope of authentication instead of sticking with the original concept of `CredentialInterface`.
+Therefore a fairly big change has been made to remove this.
+Instead documentation should be made available on how to implement your own user focused authentication.
+
+* Removed `Umber\Authentication\Prototype\UserInterface` as it requires an implementation of this which may not meet your domain model.
+* Removed `Umber\Authentication\Resolver\Credential\UserCrednetialInterface`
+* Removed `Umber\Authentication\Resolver\Credential\UserCrednetial`
+* Removed `Umber\Authentication\Storage\CredentialStorageInterface::getUser()`, you can implement this yourself by making the `CredentialInterface` user aware.
+* Removed `Umber\Authentication\Framework\Modifier\AuthenticatorRoleModifierInterface` as it's a bespoke use case and roles should be modified before being given to the credential.
+* Moved/Renamed `Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedUserException` to`Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedCredentialException`
+* Moved/Renamed `Umber\Authentication\Prototype\Authorisation\AuthorisationAwareInterface` to `Umber\Authentication\Authorisation\AuthorisationAwareInterface`
+
+
 ## [2.0.0] - 2019-04-21
 
 A small overhaul of the coding standards and how the exceptions work.

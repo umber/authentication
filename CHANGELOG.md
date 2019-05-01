@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [2.1.0] - 2019-04-29
 
 The package had a concept of `UserInterface` which was too restrictive and narrows the scope of authentication instead of sticking with the original concept of `CredentialInterface`.
 Therefore a fairly big change has been made to remove this.

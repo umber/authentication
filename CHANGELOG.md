@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2019-05-01
+
+* Exception `Umber\Authentication\Exception\Resolver\CannotResolveAuthenticatedCredentialException` can now accept a `$previous` exception.
+* Exception `Umber\Authentication\Exception\Resolver\CannotResolveAuthenticationMethodException` can now accept a `$previous` exception.
+
 ## [2.1.0] - 2019-04-29
 
 The package had a concept of `UserInterface` which was too restrictive and narrows the scope of authentication instead of sticking with the original concept of `CredentialInterface`.
